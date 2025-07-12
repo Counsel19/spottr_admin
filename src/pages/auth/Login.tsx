@@ -45,7 +45,7 @@ const Login = () => {
           </div>
         </div>
 
-        <Button className="w-full">Continue</Button>
+        <Button onClick={() =>navigate(routeConstants.dashboard) } className="w-full">Continue</Button>
       </form>
     </div>
   );
