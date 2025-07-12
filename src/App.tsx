@@ -10,6 +10,8 @@ import DashbaordHome from "./pages/DashbaordHome";
 import AdminManagement from "./pages/usersManagement/AdminManagement";
 import CategoryHome from "./pages/categories/CategoryHome";
 import ComingSoon from "./pages/ComingSoon";
+import ProductHome from "./pages/products/ProductHome";
+import TransactionHome from "./pages/transactions/TransactionHome";
 
 function App() {
   return (
@@ -30,7 +32,8 @@ function App() {
         </Route>
         <Route path="categories" element={<CategoryHome />} />
         <Route path="brands" element={<ComingSoon />} />
-        <Route path="products" element={<ComingSoon />} />
+        <Route path="products" element={<ProductHome />} />
+        <Route path="transactions" element={<TransactionHome />} />
         <Route path="analytics" element={<ComingSoon />} />
         <Route path="task" element={<ComingSoon />} />
         <Route path="ads" element={<ComingSoon />} />

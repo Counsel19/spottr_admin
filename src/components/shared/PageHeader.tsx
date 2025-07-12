@@ -10,10 +10,15 @@ interface PageHeaderPops {
   tabList?: { name: string; path: string }[];
   createText: string;
   deleteText: string;
-  pageTitle: string
+  pageTitle: string;
 }
 
-const PageHeader = ({ tabList, createText, pageTitle, deleteText }: PageHeaderPops) => {
+const PageHeader = ({
+  tabList,
+  createText,
+  pageTitle,
+  deleteText,
+}: PageHeaderPops) => {
   const navigate = useNavigate();
   return (
     <div className="space-y-[2rem]">
@@ -43,15 +48,19 @@ const PageHeader = ({ tabList, createText, pageTitle, deleteText }: PageHeaderPo
         {tabList ? <TabsBox tabs={tabList} /> : <div></div>}
 
         <div className="flex gap-[2rem] items-center">
-          <Button className="border-primary text-primary" variant={"outline"}>
-            {createText}
-          </Button>
-          <Button
-            className="border-destructive text-destructive"
-            variant={"outline"}
-          >
-            {deleteText}
-          </Button>
+          {createText && (
+            <Button className="border-primary text-primary" variant={"outline"}>
+              {createText}
+            </Button>
+          )}
+          {deleteText && (
+            <Button
+              className="border-destructive text-destructive"
+              variant={"outline"}
+            >
+              {deleteText}
+            </Button>
+          )}
         </div>
       </div>
     </div>

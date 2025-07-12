@@ -104,7 +104,7 @@ export const AdminUserTable = ({
               </th>
             </tr>
           </thead>
-          <tbody className="">
+          <tbody className="overflow-hidden rounded-[0.6rem]">
             {filteredUsers.map((user) => (
               <AdminUserRecord key={user.id} user={user} />
             ))}

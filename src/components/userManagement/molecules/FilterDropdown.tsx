@@ -17,8 +17,8 @@ const FilterDropdown = () => {
   return (
     <div>
       <Select>
-        <SelectTrigger className="focus-visible:ring-0 focus-visible:ring-offset-0 md:w-[70%]">
-          <SelectValue placeholder="-Select State-" />
+        <SelectTrigger className="">
+          <SelectValue placeholder="Select" />
         </SelectTrigger>
         <SelectContent>
           {filterOptions &&

@@ -1,11 +1,11 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MoreHorizontal } from "lucide-react";
-import type { ITrending } from "@/types/trending";
-import TrendingItem from "./molecules/TrendingItem";
+import type { IProduct } from "@/types/product";
+import ProductItem from "../products/ProductItem";
 
 const TrendingSection: React.FC = () => {
-  const trendingItems: ITrending[] = [
+  const trendingItems: IProduct[] = [
     {
       id: "1",
       title: "10 Baskets of Tomatoes",
@@ -36,7 +36,7 @@ const TrendingSection: React.FC = () => {
   ];
 
   return (
-    <Card className="w-full max-w-md bg-white shadow-none">
+    <Card className="w-full  bg-white shadow-none">
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between">
            <CardTitle className="font-bold text-primary text-[1.6rem]">
@@ -47,7 +47,7 @@ const TrendingSection: React.FC = () => {
       </CardHeader>
       <CardContent className="space-y-4">
         {trendingItems.map((item, index) => (
-          <TrendingItem key={index} item={item} />
+          <ProductItem key={index} item={item} />
         ))}
       </CardContent>
     </Card>

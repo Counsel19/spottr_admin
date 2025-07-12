@@ -52,7 +52,7 @@ const chartConfig = {
 
 export function ChartAreaLegend() {
   return (
-    <Card className="shadow-none">
+    <Card className="shadow-none w-full">
       <CardHeader className="flex justify-between ">
         <CardTitle className="font-bold text-primary text-[1.6rem]">
           Revenue

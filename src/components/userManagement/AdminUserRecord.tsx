@@ -38,7 +38,7 @@ const AdminUserRecord = ({ user }: AdminUserTableProps) => {
   return (
     <tr
       key={user.id}
-      className={`border-b mb-4 text-[1.4rem] border-gray-50 bg-[#F6F6F6] transition-colors hover:bg-gray-50/50 ${
+      className={`border-b rounded-[0.6rem] mb-4 text-[1.4rem] border-gray-50 bg-[#F6F6F6] transition-colors hover:bg-gray-50/50 ${
         hoveredRow === user.id ? "bg-gray-50/50" : ""
       }`}
       onMouseEnter={() => setHoveredRow(user.id)}

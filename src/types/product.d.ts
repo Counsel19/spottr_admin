@@ -1,4 +1,4 @@
-export interface ITrending {
+export interface IProduct {
   id: string;
   title: string;
   category: string;

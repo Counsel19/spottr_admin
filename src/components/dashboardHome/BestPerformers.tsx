@@ -64,7 +64,7 @@ const bestRated: Performer[] = [
 
 const BestPerformers = () => {
   return (
-    <Card className="w-full h-full max-w-2xl mx-auto shadow-none">
+    <Card className="w-full h-full shadow-none">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <CardTitle className="font-bold text-primary text-[1.6rem]">

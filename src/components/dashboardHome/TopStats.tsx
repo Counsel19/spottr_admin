@@ -98,7 +98,7 @@ const TopStats = () => {
         <h2 className="text-[1.6rem] text-primary font-bold mb-[2rem]">
           Top Categories
         </h2>
-        <div className="space-y-6">
+        <div className="space-y-1">
           {topCategories.map((categoryItem, index) => (
             <CategoryListItem
               key={index}
@@ -160,7 +160,7 @@ const CategoryListItem = ({
   sn: number;
 }) => {
   return (
-    <div className="flex gap-4 items-center text-[1.4rem] border-b border-muted py-4 ">
+    <div className="flex gap-4 items-center text-[1.4rem] border-b border-muted py-3 ">
       <span className="text-primary font-semibold">{sn}</span>
       <div className="flex items-center gap-2">
         <UserAvatar imgUrl={avaterImg} name={category} />
