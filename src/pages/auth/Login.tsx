@@ -26,7 +26,7 @@ const Login = () => {
           <Link to={routeConstants.forgetPassword}>Forgot Password?</Link>
         </div>
 
-        <div className="my-[4rem] flex flex-col items-center gap-[2rem]">
+        {/* <div className="my-[4rem] flex flex-col items-center gap-[2rem]">
           <span className="text-[1.4rem] text-center">Or use</span>
 
           <div className="flex gap-[1rem] items-center w-fit">
@@ -43,7 +43,7 @@ const Login = () => {
               icon={<img src="/icons/google.svg" />}
             />
           </div>
-        </div>
+        </div> */}
 
         <Button onClick={() =>navigate(routeConstants.dashboard) } className="w-full">Continue</Button>
       </form>
