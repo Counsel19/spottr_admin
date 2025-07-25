@@ -3,8 +3,9 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
 } from "@/components/ui/select";
+
+import { IoMdOptions } from "react-icons/io";
 
 const filterOptions = [
   {
@@ -15,25 +16,24 @@ const filterOptions = [
 
 const FilterDropdown = () => {
   return (
-    <div>
-      <Select>
-        <SelectTrigger className="">
-          <SelectValue placeholder="Select" />
-        </SelectTrigger>
-        <SelectContent>
-          {filterOptions &&
-            filterOptions.map((item, index) => (
-              <SelectItem
-                key={index}
-                value={item.id.toString()}
-                className="capitalize"
-              >
-                {item.name}
-              </SelectItem>
-            ))}
-        </SelectContent>
-      </Select>
-    </div>
+    <Select>
+      <SelectTrigger className="data-[size=default]:h-[4rem]">
+        <IoMdOptions />
+        <span>Filter by</span>
+      </SelectTrigger>
+      <SelectContent>
+        {filterOptions &&
+          filterOptions.map((item, index) => (
+            <SelectItem
+              key={index}
+              value={item.id.toString()}
+              className="capitalize"
+            >
+              {item.name}
+            </SelectItem>
+          ))}
+      </SelectContent>
+    </Select>
   );
 };
 

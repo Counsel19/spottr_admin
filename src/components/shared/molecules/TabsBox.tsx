@@ -13,19 +13,19 @@ const TabsBox = ({ tabs }: TabsBoxProps) => {
   const location = useLocation();
 
   return (
-    <div>
+    <div className="flex gap-2 border rounded-[0.8rem] p-2">
       {tabs.map((tab, index) => (
         <Link
           to={tab.path}
           key={index}
           className={cn(
             buttonVariants({ variant: "ghost" }),
-            "h-18 py-0 hover:bg-transparent border-b-4 border-transparent rounded-none hover:border-[hsl(138,63%,36%)], ",
+            "h-14 py-0 bg-transparent text-muted hover:bg-[#274B891A]",
             ((tab.path !== "/dashboard" &&
               location.pathname.includes(tab.path)) ||
               (location.pathname === "/dashboard" &&
                 location.pathname === tab.path)) &&
-              "border-primary"
+              "bg-[#274B891A] text-primary"
           )}
         >
           {tab.name}

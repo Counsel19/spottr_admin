@@ -6,8 +6,24 @@ import { BiCategory } from "react-icons/bi";
 import { FaRegPaperPlane } from "react-icons/fa6";
 import { BiSolidTachometer, BiSolidBoltCircle } from "react-icons/bi";
 import { IoMdSettings } from "react-icons/io";
+import { useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "@/lib/redux/store";
+import { useEffect } from "react";
+import { selectSubLinks } from "@/lib/redux/slices/routingSlice";
 
 const DashbaordSidebar = () => {
+  const location = useLocation();
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    const subLinks = sidebarLinks.find(
+      (item) => item.path == location.pathname
+    )?.subLinks;
+    dispatch(selectSubLinks(subLinks));
+  }, []);
+
   return (
     <div className="shadow-[0px_2.59px_12.93px_0px_#00000012] space-y-4">
       <div className="h-[6rem] w-full grid place-items-center">

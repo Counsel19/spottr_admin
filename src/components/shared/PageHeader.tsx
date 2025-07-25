@@ -1,66 +1,41 @@
 import FilterDropdown from "@/components/userManagement/molecules/FilterDropdown";
-import { MoveLeft } from "lucide-react";
-import IconTextButton from "@/components/shared/molecules/IconTextButton";
 import Searchbar from "@/components/shared/molecules/Searchbar";
 import TabsBox from "@/components/shared/molecules/TabsBox";
-import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import TabsBoxButton from "./molecules/TabsBoxButton";
+import type React from "react";
 
 interface PageHeaderPops {
   tabList?: { name: string; path: string }[];
-  createText: string;
-  deleteText: string;
-  pageTitle: string;
+  buttonTabLink?: { index: number; name: string }[];
+  activeIndex?: number;
+  setActiveIndex?: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const PageHeader = ({
   tabList,
-  createText,
-  pageTitle,
-  deleteText,
+  buttonTabLink,
+  activeIndex,
+  setActiveIndex,
 }: PageHeaderPops) => {
-  const navigate = useNavigate();
   return (
     <div className="space-y-[2rem]">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-[1rem]">
-          <IconTextButton
-            icon={<MoveLeft size={30} />}
-            cta="Go back"
-            onClick={() => navigate(-1)}
+        {tabList ? (
+          <TabsBox tabs={tabList} />
+        ) : buttonTabLink && activeIndex != undefined ? (
+          <TabsBoxButton
+            setActiveIndex={setActiveIndex}
+            activeindex={activeIndex}
+            tabs={buttonTabLink}
           />
-          <h1 className="font-bold text-primary text-[1.6rem]">{pageTitle}</h1>
-        </div>
+        ) : (
+          <div></div>
+        )}
 
         <div className="flex items-center  gap-[1rem]">
           <Searchbar />
 
-          <div className="flex  gap-2 items-center">
-            <span className="text-primary font-semibold text-[1.4rem]">
-              Filter by:
-            </span>
-            <FilterDropdown />
-          </div>
-        </div>
-      </div>
-
-      <div className="flex justify-between ">
-        {tabList ? <TabsBox tabs={tabList} /> : <div></div>}
-
-        <div className="flex gap-[2rem] items-center">
-          {createText && (
-            <Button className="border-primary text-primary" variant={"outline"}>
-              {createText}
-            </Button>
-          )}
-          {deleteText && (
-            <Button
-              className="border-destructive text-destructive"
-              variant={"outline"}
-            >
-              {deleteText}
-            </Button>
-          )}
+          <FilterDropdown />
         </div>
       </div>
     </div>

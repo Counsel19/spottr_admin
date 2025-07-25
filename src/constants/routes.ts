@@ -7,8 +7,9 @@ const routeConstants = {
   dashboard: "/dashboard",
 
   // Products 
-  allProducts: "/dashboard/products?tabs=all",
-  allAdds: "/dashboard/products?tabs=ads"
+  allProducts: "/dashboard/products",
+  allAdds: "/dashboard/products",
+  productRequest: "/dashboard/products/request"
 };
 
 export default routeConstants;

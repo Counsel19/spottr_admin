@@ -15,18 +15,20 @@ const Login = () => {
         onClick={() => navigate(-1)}
       />
 
-      <h3 className="text-[2.4rem] text-primary font-bold leading-[2.4rem]">
-        Login to your account
-      </h3>
+      <div className=" grid content-center  h-full">
+        <div className="w-full space-y-[3rem]">
+          <h3 className="text-[2.4rem] text-primary font-bold leading-[2.4rem]">
+            Login to your account
+          </h3>
 
-      <form className="space-y-[1rem]">
-        <Input placeholder="name@email.com" type="email" />
-        <Input placeholder="Password" type="password" />
-        <div className="flex justify-end text-primary text-[1.4rem]">
-          <Link to={routeConstants.forgetPassword}>Forgot Password?</Link>
-        </div>
+          <form className="space-y-[1rem]">
+            <Input placeholder="name@email.com" type="email" />
+            <Input placeholder="Password" type="password" />
+            <div className="flex justify-end text-primary text-[1.4rem]">
+              <Link to={routeConstants.forgetPassword}>Forgot Password?</Link>
+            </div>
 
-        {/* <div className="my-[4rem] flex flex-col items-center gap-[2rem]">
+            {/* <div className="my-[4rem] flex flex-col items-center gap-[2rem]">
           <span className="text-[1.4rem] text-center">Or use</span>
 
           <div className="flex gap-[1rem] items-center w-fit">
@@ -45,8 +47,15 @@ const Login = () => {
           </div>
         </div> */}
 
-        <Button onClick={() =>navigate(routeConstants.dashboard) } className="w-full">Continue</Button>
-      </form>
+            <Button
+              onClick={() => navigate(routeConstants.dashboard)}
+              className="w-full"
+            >
+              Continue
+            </Button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

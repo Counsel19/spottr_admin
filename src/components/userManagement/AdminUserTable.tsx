@@ -1,5 +1,8 @@
 import { Users } from "lucide-react";
 import AdminUserRecord from "./AdminUserRecord";
+import { useState } from "react";
+import { AppPagination } from "../shared/molecules/AppPagination";
+import { AppTable } from "../shared/AppTable";
 
 const users: IAdminUser[] = [
   {
@@ -9,7 +12,9 @@ const users: IAdminUser[] = [
     role: "Administrator",
     permission: "Administrator",
     lastLogin: "Jan 4, 8:35PM",
-    status: "online",
+    status: "active",
+    phoneNumber: "0810004646734",
+    username: "waleinfo",
     avatar: "/images/avatar.png",
   },
   {
@@ -19,18 +24,22 @@ const users: IAdminUser[] = [
     role: "Auditor",
     permission: "Auditor",
     lastLogin: "Jan 4, 8:35PM",
-    status: "offline",
-       avatar: "/images/avatar.png",
+    phoneNumber: "0810004646734",
+    username: "waleinfo",
+    status: "inactive",
+    avatar: "/images/avatar.png",
   },
   {
     id: "3",
     name: "Adewale Adedamola",
     email: "Adewale67@spottr.com",
     role: "Marketplace Manager",
+    phoneNumber: "0810004646734",
+    username: "waleinfo",
     permission: "Marketplace mgr",
     lastLogin: "Jan 4, 8:35PM",
-    status: "offline",
-       avatar: "/images/avatar.png",
+    status: "inactive",
+    avatar: "/images/avatar.png",
   },
   {
     id: "4",
@@ -38,19 +47,23 @@ const users: IAdminUser[] = [
     email: "Adewale67@spottr.com",
     role: "Content Manager",
     permission: "Content mgr",
+    phoneNumber: "0810004646734",
+    username: "waleinfo",
     lastLogin: "Jan 4, 8:35PM",
-    status: "offline",
-        avatar: "/images/avatar.png",
+    status: "inactive",
+    avatar: "/images/avatar.png",
   },
   {
     id: "5",
     name: "Adewale Adedamola",
+    phoneNumber: "0810004646734",
+    username: "waleinfo",
     email: "Adewale67@spottr.com",
     role: "Admin",
     permission: "Admin",
     lastLogin: "Jan 4, 8:35PM",
-    status: "offline",
-         avatar: "/images/avatar.png",
+    status: "inactive",
+    avatar: "/images/avatar.png",
   },
 ];
 
@@ -65,6 +78,16 @@ export const AdminUserTable = ({
   searchTerm,
   selectedRole,
 }: UserTableProps) => {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = 5;
+  const totalItems = 20;
+  const itemsPerPage = 5;
+  const onPageChange = () => {
+    setCurrentPage((cur) => cur + 1);
+  };
+  const showInfo = true;
+
   const filteredUsers = users.filter((user) => {
     const matchesSearch =
       user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -77,52 +100,26 @@ export const AdminUserTable = ({
 
   return (
     <div className="bg-white">
-      <div className="overflow-x-auto">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-gray-100">
-              <th className="text-left py-4 px-6 text-[1.6rem] font-medium text-gray-500">
-                Status
-              </th>
-              <th className="text-left py-4 px-6 text-[1.6rem] font-medium text-gray-500">
-                Photo
-              </th>
-              <th className="text-left py-4 px-6 text-[1.6rem] font-medium text-gray-500">
-                Full Name
-              </th>
-              <th className="text-left py-4 px-6 text-[1.6rem] font-medium text-gray-500">
-                Email Address
-              </th>
-              <th className="text-left py-4 px-6 text-[1.6rem] font-medium text-gray-500">
-                Permission
-              </th>
-              <th className="text-left py-4 px-6 text-[1.6rem] font-medium text-gray-500">
-                Last login
-              </th>
-              <th className="text-left py-4 px-6 text-[1.6rem] font-medium text-gray-500">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody className="overflow-hidden rounded-[0.6rem]">
-            {filteredUsers.map((user) => (
-              <AdminUserRecord key={user.id} user={user} />
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <AppTable
+        columns={AdminUserRecord}
+        data={filteredUsers}
+        emptyState={{
+          icon: <Users className="h-12 w-12 text-gray-300 mx-auto mb-4" />,
+          title: "No users found",
+          message: "Try adjusting your search or filter criteria.",
+        }}
+      />
 
-      {filteredUsers.length === 0 && (
-        <div className="text-center py-12">
-          <Users className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">
-            No users found
-          </h3>
-          <p className="text-gray-500">
-            Try adjusting your search or filter criteria.
-          </p>
-        </div>
-      )}
+      <div className="mt-[4rem]">
+        <AppPagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={totalItems}
+          itemsPerPage={itemsPerPage}
+          onPageChange={onPageChange}
+          showInfo={showInfo}
+        />
+      </div>
     </div>
   );
 };

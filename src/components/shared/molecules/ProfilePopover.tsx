@@ -37,8 +37,14 @@ export const ProfilePopOver = () => {
         )}
       >
         <div className="flex items-center gap-4">
-          <UserAvatar imgUrl="" name={"Admin"} />
-          <ChevronDown className="size-8" />
+          <UserAvatar showStatus imgUrl="/images/avatar.png" name={"Admin"} />
+          <div>
+            <h6 className="text-[1.2rem] font-semibold text-[#4D5464]">
+              Okpabi Counsel
+            </h6>
+            <span className="text-[#667085] text-[1.2rem]">Admin</span>
+          </div>
+          <ChevronDown className="size-8 text-[#667085]" />
         </div>
       </PopoverTrigger>
       <PopoverContent

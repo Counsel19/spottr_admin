@@ -12,6 +12,12 @@ import CategoryHome from "./pages/categories/CategoryHome";
 import ComingSoon from "./pages/ComingSoon";
 import ProductHome from "./pages/products/ProductHome";
 import TransactionHome from "./pages/transactions/TransactionHome";
+import CorporateManagement from "./pages/usersManagement/CorporateManagement";
+import IndividualManager from "./pages/usersManagement/IndividualManager";
+import SingleProductDetails from "./pages/products/SingleProductDetails";
+import UpdateProduct from "./pages/products/UpdateProduct";
+import ProductRequestHome from "./pages/products/ProductRequestHome";
+import ProductLayout from "./components/products/ProductLayout";
 
 function App() {
   return (
@@ -26,13 +32,21 @@ function App() {
         <Route index element={<DashbaordHome />} />
         <Route path="users">
           <Route path="admins" element={<AdminManagement />} />
-          <Route path="buyer" element={<AdminManagement />} />
-          <Route path="seller" element={<AdminManagement />} />
-          <Route path="corporate" element={<AdminManagement />} />
+          <Route path="buyer" element={<IndividualManager />} />
+          <Route path="seller" element={<IndividualManager />} />
+          <Route path="corporate" element={<CorporateManagement />} />
         </Route>
         <Route path="categories" element={<CategoryHome />} />
         <Route path="brands" element={<ComingSoon />} />
-        <Route path="products" element={<ProductHome />} />
+        <Route path="products">
+          <Route element={<ProductLayout />}>
+            <Route index element={<ProductHome />} />
+            <Route path="request" element={<ProductRequestHome />} />
+          </Route>
+          <Route path=":productId" element={<SingleProductDetails />} />
+          <Route path=":productId/update" element={<UpdateProduct />} />
+        </Route>
+
         <Route path="transactions" element={<TransactionHome />} />
         <Route path="analytics" element={<ComingSoon />} />
         <Route path="task" element={<ComingSoon />} />

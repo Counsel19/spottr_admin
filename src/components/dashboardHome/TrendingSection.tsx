@@ -1,7 +1,6 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MoreHorizontal } from "lucide-react";
-import type { IProduct } from "@/types/product";
 import ProductItem from "../products/ProductItem";
 
 const TrendingSection: React.FC = () => {
