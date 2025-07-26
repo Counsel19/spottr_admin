@@ -16,7 +16,7 @@ const TrendingSection: React.FC = () => {
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        {productData.map((item, index) => (
+        {productData.slice(0, 3).map((item, index) => (
           <ProductItem key={index} item={item as IProductDetails} />
         ))}
       </CardContent>
