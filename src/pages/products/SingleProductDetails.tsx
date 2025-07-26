@@ -12,6 +12,21 @@ import { Link, useParams } from "react-router-dom";
 const selectedProduct: IProductDetails = {
   id: "81ad5596-b424-4973-aaee-048720456f02",
   brand_id: "4fc45af0-e33a-4916-9fce-6b11c28cd7b9",
+  corporate_profile: {
+    id: "216aaa02-ed55-45cb-995d-22c0f2a3b5bc",
+    user_id: "578840f0-d1ce-45d7-aadb-4ec9d86376d7",
+    industry_id: "7f578317-b6eb-4edc-a217-d3b376990a03",
+    kyc_doc:
+      "http://127.0.0.1:8000/storage/kyc_documents/7ISxd7Vc0Hjzv1fh3eCjCLGv5Lwr6IUQiiOcSc0S.pdf",
+    company_name: "Bernard",
+    company_size: null,
+    company_address: "17 ayobo  lagos",
+    company_description: "A test dcji ovsdovni idsdionsdn ndvson",
+    tags: null,
+    website_url: null,
+    created_at: "2025-06-21T11:53:51.000000Z",
+    updated_at: "2025-06-21T11:53:51.000000Z",
+  },
   corporate_profile_id: "8071c86c-9e2c-42bf-9e5f-8ea6b98cb34f",
   category_id: "a5a6540f-34f1-4ba1-9518-84cba344fc29",
   sub_category_id: "9ffd82a1-8dd6-4972-b548-d1c06727cdfa",

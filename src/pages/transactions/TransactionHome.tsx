@@ -1,4 +1,4 @@
-import PageHeader from "@/components/shared/PageHeader";
+import SecondaryHeader from "@/components/shared/SecondaryHeader";
 import TransactionChartCard from "@/components/transactions/TransactionChartCard";
 import TransactionTypeCard from "@/components/transactions/TransactionTypeCard";
 import { Button } from "@/components/ui/button";
@@ -6,7 +6,10 @@ import { Button } from "@/components/ui/button";
 const TransactionHome = () => {
   return (
     <div className="p-[1rem] space-y-[4rem] ">
-      <PageHeader pageTitle="Transactions" createText="" deleteText="" />
+      <SecondaryHeader
+        title="Transactions"
+        subTitle="Manage your list of Transactions"
+      />
 
       <div className="grid grid-cols-2 gap-4 justify-between ">
         <div className="flex gap-4 items-center">

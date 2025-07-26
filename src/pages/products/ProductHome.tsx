@@ -3,7 +3,7 @@ import ProductGrid from "@/components/products/ProductGrid";
 const ProductHome = () => {
   return (
     <div>
-      <ProductGrid />
+      <ProductGrid productRequest={false} />
     </div>
   );
 };
