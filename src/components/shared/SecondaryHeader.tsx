@@ -1,10 +1,11 @@
 import PageTitle from "./PageTitle";
 
 import { Button } from "../ui/button";
-import { Plus, Trash } from "lucide-react";
+import { Plus,  X } from "lucide-react";
 
 interface SecondaryHeaderProps {
   addButtonText?: string;
+  addButtonType?: "button" | "submit" | "reset";
   addButtonFunc?: VoidFunction;
   removeButtonFunc?: VoidFunction;
   removeButtonText?: string;
@@ -15,6 +16,7 @@ interface SecondaryHeaderProps {
 
 const SecondaryHeader = ({
   addButtonText,
+  addButtonType,
   removeButtonText,
   removeButtonFunc,
   title,
@@ -31,6 +33,7 @@ const SecondaryHeader = ({
       <div className="flex gap-[2rem] items-center">
         {addButtonText && (
           <Button
+          type={ addButtonType || "button"}
             onClick={() => (addButtonFunc ? addButtonFunc() : () => {})}
             className="text-white font-medium rounded-[3rem]"
           >
@@ -45,7 +48,7 @@ const SecondaryHeader = ({
             variant={"ghost"}
             className="text-white rounded-[3rem] bg-destructive hover:bg-destructive/50 font-medium"
           >
-            <Trash className="size-6" />
+            <X className="size-6" />
             {removeButtonText}
           </Button>
         )}

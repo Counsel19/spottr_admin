@@ -1,5 +1,5 @@
 
-export const productData: IProductDetails[] | IProductRequest[] = [
+export const productData: ISingleProductDetails[] | IProductRequest[] = [
   {
     id: "1",
     brand_id: "4fc45af0-e33a-4916-9fce-6b11c28cd7b9",
@@ -62,7 +62,7 @@ export const productData: IProductDetails[] | IProductRequest[] = [
       description: "A very very nice car",
       created_at: "2025-06-21T15:00:20.000000Z",
       updated_at: "2025-06-21T15:11:55.000000Z",
-      corporate_profile_id: null,
+      corporate_profile_id: "",
     },
   },
   {
@@ -127,7 +127,7 @@ export const productData: IProductDetails[] | IProductRequest[] = [
       description: "A very very nice car",
       created_at: "2025-06-21T15:00:20.000000Z",
       updated_at: "2025-06-21T15:11:55.000000Z",
-      corporate_profile_id: null,
+      corporate_profile_id: "null",
     },
   },
   {
@@ -192,7 +192,7 @@ export const productData: IProductDetails[] | IProductRequest[] = [
       description: "A very very nice car",
       created_at: "2025-06-21T15:00:20.000000Z",
       updated_at: "2025-06-21T15:11:55.000000Z",
-      corporate_profile_id: null,
+      corporate_profile_id: "null",
     },
   },
   {
@@ -257,7 +257,7 @@ export const productData: IProductDetails[] | IProductRequest[] = [
       description: "A very very nice car",
       created_at: "2025-06-21T15:00:20.000000Z",
       updated_at: "2025-06-21T15:11:55.000000Z",
-      corporate_profile_id: null,
+      corporate_profile_id: "null",
     },
   },
   {
@@ -322,7 +322,7 @@ export const productData: IProductDetails[] | IProductRequest[] = [
       description: "A very very nice car",
       created_at: "2025-06-21T15:00:20.000000Z",
       updated_at: "2025-06-21T15:11:55.000000Z",
-      corporate_profile_id: null,
+      corporate_profile_id: "null",
     },
   },
   {
@@ -387,7 +387,7 @@ export const productData: IProductDetails[] | IProductRequest[] = [
       description: "A very very nice car",
       created_at: "2025-06-21T15:00:20.000000Z",
       updated_at: "2025-06-21T15:11:55.000000Z",
-      corporate_profile_id: null,
+      corporate_profile_id: "null",
     },
   },
   {
@@ -452,7 +452,7 @@ export const productData: IProductDetails[] | IProductRequest[] = [
       description: "A very very nice car",
       created_at: "2025-06-21T15:00:20.000000Z",
       updated_at: "2025-06-21T15:11:55.000000Z",
-      corporate_profile_id: null,
+      corporate_profile_id: "null",
     },
   },
   {
@@ -517,7 +517,7 @@ export const productData: IProductDetails[] | IProductRequest[] = [
       description: "A very very nice car",
       created_at: "2025-06-21T15:00:20.000000Z",
       updated_at: "2025-06-21T15:11:55.000000Z",
-      corporate_profile_id: null,
+      corporate_profile_id: "null",
     },
   },
   {
@@ -582,7 +582,7 @@ export const productData: IProductDetails[] | IProductRequest[] = [
       description: "A very very nice car",
       created_at: "2025-06-21T15:00:20.000000Z",
       updated_at: "2025-06-21T15:11:55.000000Z",
-      corporate_profile_id: null,
+      corporate_profile_id: "null",
     },
   },
   {
@@ -647,7 +647,7 @@ export const productData: IProductDetails[] | IProductRequest[] = [
       description: "A very very nice car",
       created_at: "2025-06-21T15:00:20.000000Z",
       updated_at: "2025-06-21T15:11:55.000000Z",
-      corporate_profile_id: null,
+      corporate_profile_id: "null",
     },
   },
   {
@@ -712,7 +712,7 @@ export const productData: IProductDetails[] | IProductRequest[] = [
       description: "A very very nice car",
       created_at: "2025-06-21T15:00:20.000000Z",
       updated_at: "2025-06-21T15:11:55.000000Z",
-      corporate_profile_id: null,
+      corporate_profile_id: "null",
     },
   },
   {
@@ -777,7 +777,7 @@ export const productData: IProductDetails[] | IProductRequest[] = [
       description: "A very very nice car",
       created_at: "2025-06-21T15:00:20.000000Z",
       updated_at: "2025-06-21T15:11:55.000000Z",
-      corporate_profile_id: null,
+      corporate_profile_id: "null",
     },
   },
   {
@@ -842,7 +842,7 @@ export const productData: IProductDetails[] | IProductRequest[] = [
       description: "A very very nice car",
       created_at: "2025-06-21T15:00:20.000000Z",
       updated_at: "2025-06-21T15:11:55.000000Z",
-      corporate_profile_id: null,
+      corporate_profile_id: "null",
     },
   },
 ];

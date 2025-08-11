@@ -5,17 +5,25 @@ import TabsBoxButton from "./molecules/TabsBoxButton";
 import type React from "react";
 
 interface PageHeaderPops {
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
   tabList?: { name: string; path: string }[];
   buttonTabLink?: { index: number; name: string }[];
   activeIndex?: number;
   setActiveIndex?: React.Dispatch<React.SetStateAction<number>>;
+  filters?: FilterField[];
+  handleFilterChange?: (key: string, value: string) => void;
 }
 
 const PageHeader = ({
+  searchTerm,
+  setSearchTerm,
   tabList,
   buttonTabLink,
   activeIndex,
   setActiveIndex,
+  filters,
+  handleFilterChange,
 }: PageHeaderPops) => {
   return (
     <div className="space-y-[2rem]">
@@ -33,9 +41,14 @@ const PageHeader = ({
         )}
 
         <div className="flex items-center  gap-[1rem]">
-          <Searchbar />
+          <Searchbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-          <FilterDropdown />
+          {handleFilterChange && filters ? (
+            <FilterDropdown
+              onChange={handleFilterChange}
+              filterGroups={filters}
+            />
+          ) : null}
         </div>
       </div>
     </div>

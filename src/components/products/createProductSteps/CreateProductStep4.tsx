@@ -1,4 +1,4 @@
-import UploadImgArea from "@/components/shared/molecules/UploadArea";
+// import UploadImgArea from "@/components/shared/molecules/UploadArea";
 import { Label } from "@/components/ui/label";
 
 
@@ -18,25 +18,25 @@ const CreateProductStep4 = () => {
           <Label htmlFor="attribute" className="text-[1.4rem] font-medium mb-4">
             Product Image 1
           </Label>
-          <UploadImgArea />
+          {/* <UploadImgArea /> */}
         </div>
         <div>
           <Label htmlFor="attribute" className="text-[1.4rem] font-medium mb-4">
             Product Image 2
           </Label>
-          <UploadImgArea />
+          {/* <UploadImgArea /> */}
         </div>
         <div>
           <Label htmlFor="attribute" className="text-[1.4rem] font-medium mb-4">
             Product Image 3
           </Label>
-          <UploadImgArea />
+          {/* <UploadImgArea /> */}
         </div>
         <div>
           <Label htmlFor="attribute" className="text-[1.4rem] font-medium mb-4">
             Product Image 4
           </Label>
-          <UploadImgArea />
+          {/* <UploadImgArea /> */}
         </div>
 
         

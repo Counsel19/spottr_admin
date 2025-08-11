@@ -3,127 +3,17 @@ import IndividualUserRecord from "./IndividualUserRecord";
 import { AppPagination } from "../shared/molecules/AppPagination";
 import { useState } from "react";
 import { AppTable } from "../shared/AppTable";
-
-const users: IIndividualUser[] = [
-  {
-    id: "c27500b0-a95f-4a37-a15d-99607fb2e87a",
-    role: "individual",
-    user_name: "nwanoziep",
-    phone: "08085712067",
-    pic: "/images/avatar.png",
-    email: "noziep@gmail.com",
-    email_verified_at: null,
-    is_active: true,
-    fiat_wallet: "0.00",
-    crypto_wallet: "0.00000000",
-    created_at: "2025-06-21T10:55:36.000000Z",
-    updated_at: "2025-06-21T10:55:36.000000Z",
-    deleted_at: null,
-    deletion_scheduled_at: null,
-    profile: {
-      id: "a380b071-a3cd-482f-9e5d-77130fbd0c35",
-      user_id: "c27500b0-a95f-4a37-a15d-99607fb2e87a",
-      first_name: "John",
-      last_name: "Doe",
-      address: null,
-      bio: null,
-      type: "buyer",
-      verification_level: "0",
-      created_at: "2025-06-21T10:55:36.000000Z",
-      updated_at: "2025-06-21T10:55:36.000000Z",
-    },
-  },
-
-  {
-    id: "c27500b0-a95f-4a37-a15d-99607fb2e87a",
-    role: "individual",
-    user_name: "nwanoziep",
-    phone: "08085712067",
-    pic: "/images/avatar.png",
-    email: "noziep@gmail.com",
-    email_verified_at: null,
-    is_active: true,
-    fiat_wallet: "0.00",
-    crypto_wallet: "0.00000000",
-    created_at: "2025-06-21T10:55:36.000000Z",
-    updated_at: "2025-06-21T10:55:36.000000Z",
-    deleted_at: null,
-    deletion_scheduled_at: null,
-    profile: {
-      id: "a380b071-a3cd-482f-9e5d-77130fbd0c35",
-      user_id: "c27500b0-a95f-4a37-a15d-99607fb2e87a",
-      first_name: "John",
-      last_name: "Doe",
-      address: null,
-      bio: null,
-      type: "buyer",
-      verification_level: "0",
-      created_at: "2025-06-21T10:55:36.000000Z",
-      updated_at: "2025-06-21T10:55:36.000000Z",
-    },
-  },
-
-  {
-    id: "c27500b0-a95f-4a37-a15d-99607fb2e87a",
-    role: "individual",
-    user_name: "nwanoziep",
-    phone: "08085712067",
-    pic: "/images/avatar.png",
-    email: "noziep@gmail.com",
-    email_verified_at: null,
-    is_active: true,
-    fiat_wallet: "0.00",
-    crypto_wallet: "0.00000000",
-    created_at: "2025-06-21T10:55:36.000000Z",
-    updated_at: "2025-06-21T10:55:36.000000Z",
-    deleted_at: null,
-    deletion_scheduled_at: null,
-    profile: {
-      id: "a380b071-a3cd-482f-9e5d-77130fbd0c35",
-      user_id: "c27500b0-a95f-4a37-a15d-99607fb2e87a",
-      first_name: "John",
-      last_name: "Doe",
-      address: null,
-      bio: null,
-      type: "buyer",
-      verification_level: "0",
-      created_at: "2025-06-21T10:55:36.000000Z",
-      updated_at: "2025-06-21T10:55:36.000000Z",
-    },
-  },
-
-  {
-    id: "c27500b0-a95f-4a37-a15d-99607fb2e87a",
-    role: "individual",
-    user_name: "nwanoziep",
-    phone: "08085712067",
-    pic: "/images/avatar.png",
-    email: "noziep@gmail.com",
-    email_verified_at: null,
-    is_active: true,
-    fiat_wallet: "0.00",
-    crypto_wallet: "0.00000000",
-    created_at: "2025-06-21T10:55:36.000000Z",
-    updated_at: "2025-06-21T10:55:36.000000Z",
-    deleted_at: null,
-    deletion_scheduled_at: null,
-    profile: {
-      id: "a380b071-a3cd-482f-9e5d-77130fbd0c35",
-      user_id: "c27500b0-a95f-4a37-a15d-99607fb2e87a",
-      first_name: "John",
-      last_name: "Doe",
-      address: null,
-      bio: null,
-      type: "buyer",
-      verification_level: "0",
-      created_at: "2025-06-21T10:55:36.000000Z",
-      updated_at: "2025-06-21T10:55:36.000000Z",
-    },
-  },
-];
+import { toast } from "sonner";
+import DataLoader from "../shared/DataLoader";
+import { TableSkeleton } from "../ui/table-skeleton";
+import { useDebounce } from "@/hooks/useDebounce";
+import { useGetAllUsers } from "@/lib/api/userManagement";
+import { usePaginationMeta } from "@/hooks/usePaginatedMeta";
+import { UserRoles, type individualUserType } from "@/constants/enums";
 
 interface UserTableProps {
   searchTerm: string;
+  userType: individualUserType;
   setSearchTerm: (term: string) => void;
   selectedRole: string;
   setSelectedRole: (role: string) => void;
@@ -131,55 +21,73 @@ interface UserTableProps {
 
 export const IndividualUserTable = ({
   searchTerm,
-  selectedRole,
+  userType,
 }: UserTableProps) => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = 5;
-  const totalItems = 20;
-  const itemsPerPage = 5;
+  const deboucedSearchValue = useDebounce(searchTerm, 2000);
+
+  const { data, isLoading, error, isError } = useGetAllUsers({
+    role: UserRoles.individual,
+    type: userType,
+    per_page: 20,
+    search: deboucedSearchValue,
+  });
+
+  const { itemsPerPage, totalItems, totalPages } = usePaginationMeta(
+    setCurrentPage,
+    data?.pagination
+  );
+
   const onPageChange = () => {
     setCurrentPage((cur) => cur + 1);
   };
   const showInfo = true;
 
-  const filteredUsers = users.filter((user) => {
-    const matchesSearch =
-      user.profile.first_name
-        ?.toLowerCase()
-        .includes(searchTerm.toLowerCase()) ||
-      user.profile.last_name
-        ?.toLowerCase()
-        .includes(searchTerm.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesRole =
-      selectedRole === "all" ||
-      user.role.toLowerCase().includes(selectedRole.toLowerCase());
-    return matchesSearch && matchesRole;
-  });
-
   return (
     <div className="bg-white">
-      <AppTable
-        columns={IndividualUserRecord}
-        data={filteredUsers}
-        emptyState={{
-          icon: <Users className="h-12 w-12 text-gray-300 mx-auto mb-4" />,
-          title: "No users found",
-          message: "Try adjusting your search or filter criteria.",
-        }}
-      />
-
-      <div className="mt-[4rem]">
-        <AppPagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          totalItems={totalItems}
-          itemsPerPage={itemsPerPage}
-          onPageChange={onPageChange}
-          showInfo={showInfo}
+      <DataLoader
+        isLoading={isLoading || !data?.data}
+        isEmpty={data?.data && data?.data?.length === 0}
+        skeleton={
+          <TableSkeleton
+            rows={3}
+            columns={6}
+            showCheckbox={false}
+            showAvatar={false}
+            showActions={true}
+          />
+        }
+        emptyState={
+          <div className="text-center py-10 space-y-6">
+            <Users className="size-20 text-gray-300 mx-auto mb-4" />
+            <h3 className="text-[1.8rem] font-semibold">No users found</h3>
+            <p className="text-[1.4rem] text-gray-500">
+              Try adjusting your search or filter criteria.
+            </p>
+          </div>
+        }
+      >
+        <AppTable
+          columns={IndividualUserRecord}
+          data={data?.data as IIndividualUser[]}
         />
-      </div>
+      </DataLoader>
+
+      {data?.pagination && (
+        <div className="mt-[4rem]">
+          <AppPagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            totalItems={totalItems}
+            itemsPerPage={itemsPerPage}
+            onPageChange={onPageChange}
+            showInfo={showInfo}
+          />
+        </div>
+      )}
+
+      {isError && error.message && toast.error(error.message)}
     </div>
   );
 };

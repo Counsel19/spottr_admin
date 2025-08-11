@@ -18,6 +18,7 @@ const tabsList = [
 
 const ProductLayout = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [search, setSearch] = useState("");
 
   const handleProductSubmit = () => {};
   return (
@@ -28,7 +29,11 @@ const ProductLayout = () => {
         addButtonFunc={() => setIsModalOpen(true)}
         addButtonText="Create New Product"
       />
-      <PageHeader tabList={tabsList} />
+      <PageHeader
+        setSearchTerm={setSearch}
+        searchTerm={search}
+        tabList={tabsList}
+      />
 
       <Outlet />
 

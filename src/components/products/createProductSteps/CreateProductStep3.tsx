@@ -63,7 +63,7 @@ const CreateProductStep3 = ({
           <Input
             id="is_available"
             placeholder="Enter ID of the product's subcategory"
-            value={formData.is_available.toString()}
+            value={formData.isAvailable.toString()}
             onChange={(e) => updateFormData("is_available", e.target.value)}
             className="mt-1"
           />

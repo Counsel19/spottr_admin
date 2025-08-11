@@ -9,7 +9,7 @@ import { Pencil } from "lucide-react";
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-const selectedProduct: IProductDetails = {
+const selectedProduct: ISingleProductDetails = {
   id: "81ad5596-b424-4973-aaee-048720456f02",
   brand_id: "4fc45af0-e33a-4916-9fce-6b11c28cd7b9",
   corporate_profile: {
@@ -71,7 +71,7 @@ const selectedProduct: IProductDetails = {
     description: "A very very nice car",
     created_at: "2025-06-21T15:00:20.000000Z",
     updated_at: "2025-06-21T15:11:55.000000Z",
-    corporate_profile_id: null,
+    corporate_profile_id: "",
   },
 };
 

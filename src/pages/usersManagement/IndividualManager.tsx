@@ -1,12 +1,17 @@
 import PageHeader from "@/components/shared/PageHeader";
 import SecondaryHeader from "@/components/shared/SecondaryHeader";
 import { IndividualUserTable } from "@/components/userManagement/IndividualUserTable";
+import type { individualUserType } from "@/constants/enums";
 import type { RootState } from "@/lib/redux/store";
 
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-const IndividualManager = () => {
+interface IndividualManagerProps {
+  userType: individualUserType;
+}
+
+const IndividualManager = ({ userType }: IndividualManagerProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedRole, setSelectedRole] = useState("");
 
@@ -17,12 +22,13 @@ const IndividualManager = () => {
       <SecondaryHeader
         title="User Management"
         subTitle="Manage your super admins, corporate, users etc."
-        addButtonText="+ Create Corporate Account"
+        addButtonText="Create Individual Account"
       />
 
-      <PageHeader tabList={selectedSubLinks} />
+      <PageHeader searchTerm={searchTerm} setSearchTerm={setSearchTerm} tabList={selectedSubLinks} />
 
       <IndividualUserTable
+        userType={userType}
         searchTerm={searchTerm}
         setSelectedRole={setSelectedRole}
         setSearchTerm={setSearchTerm}

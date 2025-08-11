@@ -3,12 +3,18 @@ import { IoMail } from "react-icons/io5";
 import Searchbar from "./molecules/Searchbar";
 import { Button } from "../ui/button";
 import { ProfilePopOver } from "./molecules/ProfilePopover";
+import { useState } from "react";
 
 const DashbaordHeader = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   return (
     <div className=" mb-4 ">
       <div className="flex rounded-[1rem] justify-between items-center bg-[#F5F5F5] py-2 px-4 border-[#E8E8E8] ">
-        <Searchbar styleClasses="bg-white" />
+        <Searchbar
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          styleClasses="bg-white"
+        />
 
         <div className="flex items-center gap-[4rem]">
           <div className="flex items-center gap-[1rem]">

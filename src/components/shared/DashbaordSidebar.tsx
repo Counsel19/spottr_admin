@@ -12,6 +12,9 @@ import type { AppDispatch } from "@/lib/redux/store";
 import { useEffect } from "react";
 import { selectSubLinks } from "@/lib/redux/slices/routingSlice";
 
+import { FaIndustry } from "react-icons/fa6";
+import routeConstants from "@/constants/routes";
+
 const DashbaordSidebar = () => {
   const location = useLocation();
 
@@ -77,9 +80,24 @@ const sidebarLinks = [
     ],
   },
   {
+    name: "Industries",
+    icon: <FaIndustry className="size-8" />,
+    path: "/dashboard/industries",
+  },
+  {
     name: "Categories",
     icon: <BiCategory className="size-8" />,
     path: "/dashboard/categories",
+    subLinks: [
+      {
+        name: "Category",
+        path: routeConstants.categories,
+      },
+      {
+        name: "Sub Category",
+        path: routeConstants.subCategories,
+      },
+    ],
   },
   {
     name: "Brands",
@@ -90,6 +108,31 @@ const sidebarLinks = [
     name: "Products",
     icon: <BiCategory className="size-8" />,
     path: "/dashboard/products",
+    subLinks: [
+      {
+        name: "Products",
+        path: routeConstants.allProducts,
+      },
+      {
+        name: "Product Request",
+        path: routeConstants.productRequest,
+      },
+    ],
+  },
+  {
+    name: "Subscription",
+    icon: <FaRegPaperPlane className="size-8" />,
+    path: routeConstants. subscribers,
+    subLinks: [
+      {
+        name: "Subscribers",
+        path: routeConstants.subscribers,
+      },
+      {
+        name: "Subscription Plan",
+        path: routeConstants.subscriptionPlan,
+      },
+    ],
   },
   {
     name: "Transactions",

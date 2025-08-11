@@ -23,7 +23,7 @@ const CreateProductStep1 = ({
           <Input
             id="brandId"
             placeholder="Enter Associated brand's unique identifier"
-            value={formData.brand_id}
+            value={formData.brandId}
             onChange={(e) => updateFormData("brand_id", e.target.value)}
             className="mt-1"
           />
@@ -36,7 +36,7 @@ const CreateProductStep1 = ({
           <Input
             id="corporate_profile_id"
             placeholder="Enter Corporate profile that owns this product"
-            value={formData.corporate_profile_id}
+            value={formData.corporateProfileId}
             onChange={(e) =>
               updateFormData("corporate_profile_id", e.target.value)
             }
@@ -51,7 +51,7 @@ const CreateProductStep1 = ({
           <Input
             id="category_id"
             placeholder="Enter ID of the product's main category"
-            value={formData.category_id}
+            value={formData.categoryId}
             onChange={(e) => updateFormData("category_id", e.target.value)}
             className="mt-1"
           />
@@ -64,7 +64,7 @@ const CreateProductStep1 = ({
           <Input
             id="sub_category_id"
             placeholder="Enter ID of the product's subcategory"
-            value={formData.sub_category_id}
+            value={formData.subCategoryId}
             onChange={(e) => updateFormData("sub_category_id", e.target.value)}
             className="mt-1"
           />

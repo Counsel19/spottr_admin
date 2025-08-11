@@ -3,38 +3,85 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
+import { useState } from "react";
 
-import { IoMdOptions } from "react-icons/io";
+interface FilterByDropdownProps {
+  filterGroups?: FilterField[];
+  onChange: (key: string, value: string) => void;
+}
 
-const filterOptions = [
-  {
-    id: "none",
-    name: "None",
-  },
-];
+function FilterDropdown({ filterGroups, onChange }: FilterByDropdownProps) {
+  const [selectedKey, setSelectedKey] = useState<string>("");
+  const [selectedValue, setSelectedValue] = useState<string>("");
 
-const FilterDropdown = () => {
+  const currentGroup = filterGroups?.find((f) => f.key === selectedKey);
+
+  const handleKeyChange = (key: string) => {
+    setSelectedKey(key);
+    setSelectedValue("");
+  };
+
+  const handleValueChange = (value: string) => {
+    setSelectedValue(value);
+    if (selectedKey) {
+      onChange(selectedKey, value);
+    }
+  };
+
   return (
-    <Select>
-      <SelectTrigger className="data-[size=default]:h-[4rem]">
-        <IoMdOptions />
-        <span>Filter by</span>
-      </SelectTrigger>
-      <SelectContent>
-        {filterOptions &&
-          filterOptions.map((item, index) => (
-            <SelectItem
-              key={index}
-              value={item.id.toString()}
-              className="capitalize"
-            >
-              {item.name}
-            </SelectItem>
-          ))}
-      </SelectContent>
-    </Select>
+    <div className="flex flex-col md:flex-row gap-4">
+      {/* Dropdown 1: Filter by */}
+      <div className="flex gap-1 items-center w-full">
+        <label className="text-[1.4rem] ">Filter By</label>
+        <Select value={selectedKey} onValueChange={handleKeyChange}>
+          <SelectTrigger className="data-[size=default]:h-[4rem]">
+            <SelectValue placeholder="Select filter" />
+          </SelectTrigger>
+          <SelectContent>
+            {filterGroups?.map((group) => (
+              <SelectItem key={group.key} value={group.key}>
+                {group.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
+      {/* Dropdown 2: Filter value */}
+      <div className="flex items-center  gap-1 w-full">
+        <label className="text-[1.4rem] w-full">Filter Key</label>
+        {selectedKey && currentGroup ? (
+          <Select value={selectedValue} onValueChange={handleValueChange}>
+            <SelectTrigger className="data-[size=default]:h-[4rem]">
+              <SelectValue placeholder={`Select ${currentGroup.label}`} />
+            </SelectTrigger>
+            <SelectContent>
+              {currentGroup.options.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        ) : (
+          <Select
+            disabled
+            value={selectedValue}
+            onValueChange={handleValueChange}
+          >
+            <SelectTrigger className="data-[size=default]:h-[4rem]">
+              <SelectValue placeholder={`Select Value`} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value={"none"}>None</SelectItem>
+            </SelectContent>
+          </Select>
+        )}
+      </div>
+    </div>
   );
-};
+}
 
 export default FilterDropdown;

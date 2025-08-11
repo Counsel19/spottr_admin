@@ -7,8 +7,7 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { Edit, Trash2, UserX, UserCheck, MoreHorizontal } from "lucide-react";
-import UserAvatar from "../shared/molecules/UserAvatar";
+import { Edit, Trash2, MoreHorizontal } from "lucide-react";
 import { getStatusBadgeColor } from "@/lib/utils";
 import type { Column } from "../shared/AppTable";
 
@@ -18,18 +17,7 @@ const CategoryItem: Column<ICategory>[] = [
     header: "ID",
     render: (category) => <span>{category.id.slice(0, 5)}...</span>,
   },
-  {
-    key: "image",
-    header: "Category Image",
-    render: (category) => (
-      <UserAvatar
-        imgUrl={category.image || ""}
-        name={category.name || "N/A"}
-        height="h-[4rem]"
-        width="w-[4rem]"
-      />
-    ),
-  },
+
   {
     key: "name",
     header: "Name",
@@ -39,20 +27,20 @@ const CategoryItem: Column<ICategory>[] = [
   {
     key: "status",
     header: "Status",
-    render: (category) => (
+    render: () => (
       <Badge
         className={`${getStatusBadgeColor(
-          category.is_active ? "active" : "inactive"
+          "active"
         )} capitalize border-0 font-medium`}
       >
-        {category.is_active ? "active" : "inactive"}
+        {"active"}
       </Badge>
     ),
   },
   {
     key: "actions",
     header: "",
-    render: (category) => (
+    render: () => (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
@@ -71,19 +59,7 @@ const CategoryItem: Column<ICategory>[] = [
             <Edit className="size-6" />
             Edit Category
           </DropdownMenuItem>
-          <DropdownMenuItem className="gap-2">
-            {category.is_active ? (
-              <>
-                <UserX className="size-6" />
-                Set Inactive
-              </>
-            ) : (
-              <>
-                <UserCheck className="size-6" />
-                Set Active
-              </>
-            )}
-          </DropdownMenuItem>
+
           <DropdownMenuSeparator />
           <DropdownMenuItem className="gap-2 text-red-600 focus:text-red-600">
             <Trash2 className="size-6" />

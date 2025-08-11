@@ -1,3 +1,4 @@
+import axios from "axios";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -64,8 +65,24 @@ export const getKYCLevelBadgeColor = (role: string) => {
   }
 };
 
-
-export const formatToNaira = new Intl.NumberFormat('en-NG', {
-    style: 'currency',
-    currency: 'NGN',
+export const formatToNaira = new Intl.NumberFormat("en-NG", {
+  style: "currency",
+  currency: "NGN",
 });
+
+export function extractAxiosErrorMessage(error: unknown): string {
+  if (axios.isAxiosError(error)) {
+    return (
+      (error.response?.data as ErrorType)?.message ||
+      error.response?.statusText ||
+      error.message ||
+      "An unknown Axios error occurred"
+    );
+  }
+
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return "An unknown error occurred";
+}

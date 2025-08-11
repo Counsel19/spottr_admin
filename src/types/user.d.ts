@@ -45,7 +45,7 @@ interface ICorporateProfile {
 
 interface IIndividualUser {
   id: string;
-  role: "individual";
+  role: string;
   user_name: string;
   phone: string;
   pic: string | null;
@@ -61,6 +61,11 @@ interface IIndividualUser {
   profile: UserProfile;
 }
 
+type GenericUser = Omit<IIndividualUser, "role" | "profile"> & {
+  role: "admin" | "super_admin" | "individual" | "corporate";
+  profile: UserProfile | null;
+};
+
 type UserProfile = {
   id: string;
   user_id: string;
@@ -73,3 +78,39 @@ type UserProfile = {
   created_at: string;
   updated_at: string;
 };
+
+interface UserLoginDetails {
+  email: string;
+  password: string;
+}
+
+interface LoginResponse {
+  token: string;
+  user: IAdminUser;
+}
+
+interface IGetUserQueryParams {
+  role?: "super_admin" | "admin" | "individual" | "corporate";
+  type?: "seller" | "buyer"; // only for individualProfile
+  is_active?: boolean;
+  search?: string;
+  per_page?: number; // default 10, max 100
+}
+
+interface IGetResponse<T> {
+  data: T[];
+  pagination: IPaginationData;
+}
+
+type IUser = IAdminUser | ICorporateUser | IIndividualUser;
+
+interface IAddCorporateUser {
+  company_name: string;
+  company_address: string;
+  company_description: string;
+  industry_id: string;
+  phone: string;
+  email: string;
+  pic: string;
+  kyc_doc;
+}

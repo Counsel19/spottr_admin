@@ -1,7 +1,7 @@
 import { formatToNaira } from "@/lib/utils";
 
 interface ProductInfoProp {
-  selectedProduct: IProductDetails;
+  selectedProduct: ISingleProductDetails;
 }
 
 const ProductInfo = ({ selectedProduct }: ProductInfoProp) => {

@@ -29,28 +29,26 @@ const ProductCreationModal: React.FC<Props> = ({
   const totalSteps = 4;
 
   const [formData, setFormData] = useState<IProductForm>({
-    brand_id: "",
-    corporate_profile_id: "",
-    category_id: "",
-    sub_category_id: "",
+    brandId: "",
+    corporateProfileId: "",
+    categoryId: "",
+    subCategoryId: "",
     name: "",
 
     description: "",
     weight: "",
     dimension: "",
-    additional_specification: "",
+    additionalSpecification: "",
     attribute: [],
     variants: [],
-    tags: "",
-    is_available: true,
+    tags: [],
+    isAvailable: "1",
     price: "",
-    product_code: "",
-    product_image_one: "",
-    product_image_two: "",
-    product_image_three: null,
-    product_image_four: null,
-    created_at: "",
-    updated_at: "",
+    productCode: "",
+    productImageOne: null,
+    productImageTwo: null,
+    productImageThree: null,
+    productImageFour: null,
   });
 
   const updateFormData = (

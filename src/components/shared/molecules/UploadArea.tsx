@@ -5,38 +5,42 @@ import { Button } from "@/components/ui/button";
 
 interface UploadImgAreaProps {
   imageURL?: string | null;
+  noPreview?: boolean;
+  name: string;
+  setFieldValue: (field: string, value: File | null) => void;
 }
 
-const UploadImgArea = ({ imageURL }: UploadImgAreaProps) => {
+const UploadImgArea = ({
+  imageURL,
+  noPreview,
+  name,
+  setFieldValue,
+}: UploadImgAreaProps) => {
   const [preview, setPreview] = useState<string | ArrayBuffer | null>(null);
 
   useEffect(() => {
-    if (imageURL) {
+    if (imageURL && !noPreview) {
       setPreview(imageURL);
     }
-  }, [imageURL]);
+  }, [imageURL, noPreview]);
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    const file = new FileReader();
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      const file = acceptedFiles[0];
+      const reader = new FileReader();
 
-    file.onload = function () {
-      setPreview(file.result);
-    };
+      if (!noPreview) {
+        reader.onload = function () {
+          setPreview(reader.result);
+        };
+      }
 
-    file.readAsDataURL(acceptedFiles[0]);
+      reader.readAsDataURL(file);
 
-    return;
-    //   return updateProductImageState({
-    //     type: "update",
-    //     payload: {
-    //       ...productImageState,
-    //       [name]: {
-    //         image: acceptedFiles[0],
-    //         imageUrl: preview,
-    //       },
-    //     },
-    //   });
-  }, []);
+      setFieldValue(name, file);
+    },
+    [name, noPreview, setFieldValue]
+  );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
   return (

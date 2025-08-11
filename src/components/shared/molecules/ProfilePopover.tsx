@@ -10,13 +10,17 @@ import UserAvatar from "./UserAvatar";
 import { cn } from "@/lib/utils";
 import { FaCircleUser } from "react-icons/fa6";
 import { ChevronDown } from "lucide-react";
+import { useLogout } from "@/hooks/useLogout";
 
 export const ProfilePopOver = () => {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const logout = useLogout();
+
   const handleLogout = async () => {
     try {
+      logout()
       setOpen(false);
     } catch (error) {
       console.log(error);

@@ -14,7 +14,9 @@ const UpdateProduct = () => {
         removeButtonFunc={() => navigate(-1)}
       />
 
-      
+        
+
+
     </div>
   );
 };

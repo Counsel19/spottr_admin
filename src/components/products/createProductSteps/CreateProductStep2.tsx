@@ -87,7 +87,7 @@ const CreateProductStep2 = ({
           <Input
             id="additional_specification"
             placeholder="Enter ID of the product's subcategory"
-            value={formData.additional_specification}
+            value={formData.additionalSpecification}
             onChange={(e) => updateFormData("additional_specification", e.target.value)}
             className="mt-1"
           />

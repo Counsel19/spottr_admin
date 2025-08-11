@@ -1,83 +1,80 @@
+import { useDebounce } from "@/hooks/useDebounce";
+import { usePaginationMeta } from "@/hooks/usePaginatedMeta";
 import { useState } from "react";
+import DataLoader from "../shared/DataLoader";
+import { TableSkeleton } from "../ui/table-skeleton";
 import { AppTable } from "../shared/AppTable";
 import { AppPagination } from "../shared/molecules/AppPagination";
+import { toast } from "sonner";
 import CategoryItem from "./CategoryItem";
-import { MdOutlineError } from "react-icons/md";
-
-const categryItem: ICategory[] = [
-  {
-    id: "4fbec211-76d1-48fe-8ca5-00a80986be81",
-    name: "Foot-wears",
-    created_at: "2025-06-21T14:32:20.000000Z",
-    updated_at: "2025-06-21T14:32:20.000000Z",
-  },
-  {
-    id: "81b619d7-12bc-4d8a-911b-1d2701c7df55",
-    name: "vehicle",
-    created_at: "2025-06-21T14:32:41.000000Z",
-    updated_at: "2025-06-21T14:32:41.000000Z",
-  },
-  {
-    id: "a5a6540f-34f1-4ba1-9518-84cba344fc29",
-    name: "Fire arms",
-    created_at: "2025-06-21T14:32:30.000000Z",
-    updated_at: "2025-06-21T14:32:30.000000Z",
-  },
-  {
-    id: "b846d6d6-3f64-428d-9f02-f67376e02366",
-    name: "Clothing",
-    created_at: "2025-06-21T14:32:07.000000Z",
-    updated_at: "2025-06-21T14:32:07.000000Z",
-  },
-];
+import { BiCategory } from "react-icons/bi";
+import { useGetCategories } from "@/lib/api/categories";
 
 interface CategoryTableProps {
   searchTerm: string;
-  setSearchTerm: (term: string) => void;
 }
 
 const CategoryTable = ({ searchTerm }: CategoryTableProps) => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = 5;
-  const totalItems = 20;
-  const itemsPerPage = 5;
+  const deboucedSearchValue = useDebounce(searchTerm, 2000);
+
+  const { data, isLoading, error, isError } = useGetCategories({
+    per_page: 20,
+    search: deboucedSearchValue,
+  });
+
+  const { itemsPerPage, totalItems, totalPages } = usePaginationMeta(
+    setCurrentPage,
+    data?.pagination
+  );
+
   const onPageChange = () => {
     setCurrentPage((cur) => cur + 1);
   };
   const showInfo = true;
 
-  const filteredCategories = categryItem.filter((category) => {
-    const matchesSearch = category.name
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-
-    return matchesSearch;
-  });
   return (
     <div className="bg-white">
-      <AppTable
-        columns={CategoryItem}
-        data={filteredCategories}
-        emptyState={{
-          icon: (
-            <MdOutlineError className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-          ),
-          title: "No Category found",
-          message: "Try adjusting your search or filter criteria.",
-        }}
-      />
+      <DataLoader
+        isLoading={isLoading || !data?.data}
+        isEmpty={data?.data && data?.data?.length === 0}
+        skeleton={
+          <TableSkeleton
+            rows={3}
+            columns={6}
+            showCheckbox={false}
+            showAvatar={false}
+            showActions={true}
+          />
+        }
+        emptyState={
+          <div className="text-center py-10 space-y-6">
+            <BiCategory className="size-20 text-gray-300 mx-auto mb-4" />
+            <h3 className="text-[1.8rem] font-semibold">No Category found</h3>
+            <p className="text-[1.4rem] text-gray-500">
+              Try adjusting your search or filter criteria.
+            </p>
+          </div>
+        }
+      >
+        <AppTable columns={CategoryItem} data={data?.data as ICategory[]} />
+      </DataLoader>
 
-      <div className="mt-[4rem]">
-        <AppPagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          totalItems={totalItems}
-          itemsPerPage={itemsPerPage}
-          onPageChange={onPageChange}
-          showInfo={showInfo}
-        />
-      </div>
+      {data?.pagination && (
+        <div className="mt-[4rem]">
+          <AppPagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            totalItems={totalItems}
+            itemsPerPage={itemsPerPage}
+            onPageChange={onPageChange}
+            showInfo={showInfo}
+          />
+        </div>
+      )}
+
+      {isError && error.message && toast.error(error.message)}
     </div>
   );
 };

@@ -1,62 +1,84 @@
 import IconTextButton from "@/components/shared/molecules/IconTextButton";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import routeConstants from "@/constants/routes";
 import { MoveLeft } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import * as Yup from "yup";
+import { Form, Formik } from "formik";
+import { useLogin } from "@/lib/api/auth";
+import CustomFormikInput from "@/components/shared/CustomFormikInput";
+import { toast } from "sonner";
+
+const validationSchema = Yup.object({
+  email: Yup.string().email("Invalid email address").required("Required"),
+  password: Yup.string()
+    .min(6, "Password must be at least 6 characters long")
+    .required("Required"),
+});
 
 const Login = () => {
   const navigate = useNavigate();
+
+  const loginMutation = useLogin();
+
   return (
-    <div className="p-[4rem] space-y-[2rem]">
-      <IconTextButton
-        icon={<MoveLeft className="size-8" />}
-        cta="Go back"
-        onClick={() => navigate(-1)}
-      />
+    <Formik
+      initialValues={{
+        email: "",
+        password: "",
+      }}
+      validationSchema={validationSchema}
+      onSubmit={async (values) => {
+        try {
+          await loginMutation.mutateAsync(values);
+          navigate(routeConstants.dashboard);
+        } catch (error) {
+          if (error instanceof Error) {
+            return toast.error(error.message);
+          }
+          return toast.error("Could not Authenticate user ");
+        }
+      }}
+    >
+      <div className="p-[4rem] space-y-[2rem]">
+        <IconTextButton
+          icon={<MoveLeft className="size-8" />}
+          cta="Go back"
+          onClick={() => navigate(-1)}
+        />
 
-      <div className=" grid content-center  h-full">
-        <div className="w-full space-y-[3rem]">
-          <h3 className="text-[2.4rem] text-primary font-bold leading-[2.4rem]">
-            Login to your account
-          </h3>
+        <div className=" mt-[8rem] h-full">
+          <div className="w-full space-y-[3rem]">
+            <h3 className="text-[2.4rem] text-primary font-bold leading-[2.4rem]">
+              Login to your account
+            </h3>
 
-          <form className="space-y-[1rem]">
-            <Input placeholder="name@email.com" type="email" />
-            <Input placeholder="Password" type="password" />
-            <div className="flex justify-end text-primary text-[1.4rem]">
-              <Link to={routeConstants.forgetPassword}>Forgot Password?</Link>
-            </div>
+            <Form className="space-y-[1rem]">
+              <CustomFormikInput
+                name="email"
+                label="Email"
+                placeholder="name@email.com"
+                type="email"
+              />
+              <CustomFormikInput
+                name="password"
+                label="Password"
+                placeholder="Password"
+                type="password"
+              />
 
-            {/* <div className="my-[4rem] flex flex-col items-center gap-[2rem]">
-          <span className="text-[1.4rem] text-center">Or use</span>
+              <div className="flex justify-end text-primary text-[1.4rem]">
+                <Link to={routeConstants.forgetPassword}>Forgot Password?</Link>
+              </div>
 
-          <div className="flex gap-[1rem] items-center w-fit">
-            <IconTextButton
-              className="font-bold text-[1.6rem] text-primary"
-              cta="Facebook"
-              variant={"outline"}
-              icon={<img src="/icons/facebook.svg" />}
-            />
-            <IconTextButton
-              className="font-bold text-[1.6rem] "
-              cta="Google"
-              variant={"outline"}
-              icon={<img src="/icons/google.svg" />}
-            />
+              <Button isLoading={loginMutation.isPending} className="w-full">
+                Continue
+              </Button>
+            </Form>
           </div>
-        </div> */}
-
-            <Button
-              onClick={() => navigate(routeConstants.dashboard)}
-              className="w-full"
-            >
-              Continue
-            </Button>
-          </form>
         </div>
       </div>
-    </div>
+    </Formik>
   );
 };
 
