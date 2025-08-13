@@ -6,7 +6,7 @@ import DataLoader from "../shared/DataLoader";
 import { useState } from "react";
 import { AppTable } from "../shared/AppTable";
 import SubcriptionPlanFeatureRecord from "./SubcriptionPlanFeatureRecord";
-import { useAddFeatureToSubscriptionPlan, useRemoveFeatureToSubscriptionPlan } from "@/lib/api/subscription";
+import {  useRemoveFeatureToSubscriptionPlan } from "@/lib/api/subscription";
 import ConfirmationModal from "../shared/ConfirmationModal";
 import { useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";

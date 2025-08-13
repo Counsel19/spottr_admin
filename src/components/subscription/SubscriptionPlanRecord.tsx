@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal, Trash2, Check, XCircle, Pen } from "lucide-react";
-import UserAvatar from "../shared/molecules/UserAvatar";
 import { getStatusBadgeColor } from "@/lib/utils";
 import type { Column } from "../shared/AppTable";
 import { Link } from "react-router-dom";

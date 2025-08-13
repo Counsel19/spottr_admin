@@ -1,4 +1,3 @@
-import { useDebounce } from "@/hooks/useDebounce";
 import { usePaginationMeta } from "@/hooks/usePaginatedMeta";
 import { useState } from "react";
 import DataLoader from "../shared/DataLoader";
@@ -7,7 +6,6 @@ import { FaIndustry } from "react-icons/fa";
 import { AppTable } from "../shared/AppTable";
 import { AppPagination } from "../shared/molecules/AppPagination";
 import { toast } from "sonner";
-import ConfirmationModal from "../shared/ConfirmationModal";
 import { useGetTransactions } from "@/lib/api/transaction";
 import TransactionRecord from "./TransactionRecord";
 
@@ -17,11 +15,11 @@ interface TransactionsTableProps {
 
 const perPage = import.meta.env.VITE_DATA_PER_PAGE
 
-const TransactionsTable = ({ searchTerm }: TransactionsTableProps) => {
+const TransactionsTable = ({ }: TransactionsTableProps) => {
     const [currentPage, setCurrentPage] = useState(1);
 
 
-    const deboucedSearchValue = useDebounce(searchTerm, 2000);
+
 
     const { data, isLoading, error, isError } = useGetTransactions({
         per_page: perPage

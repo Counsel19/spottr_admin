@@ -9,11 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import * as Yup from "yup";
 import {
-  useDeleteSubscriptionPlan,
   useGetSubscriptionPlanById,
-  //   useAddFeatureToSubscriptionPlan,
-  //   useDeleteSubscriptionPlan,
-  //   useRemoveFeatureToSubscriptionPlan,
   useToggleSubscriptionPlanStatus,
   useUpdateSubscriptionPlanDetails,
   useUpdateSubscriptionPlanImage,
@@ -44,13 +40,7 @@ const EditSubscriptionPlan = () => {
   const updateSubscriptionPlanDetailsMutate =
     useUpdateSubscriptionPlanDetails();
   const toggleSubscriptionPlanStatusMutate = useToggleSubscriptionPlanStatus();
-  const deleteSubscriptionPlanMutate = useDeleteSubscriptionPlan();
-
-  //   const handleUploadImage = async () => {
-  //     const formData = new FormData();
-  //     formData.append("image");
-  //     updateSubscriptionPlanImageMutate.mutate();
-  //   };
+ 
 
   return (
     data && !isLoading ?

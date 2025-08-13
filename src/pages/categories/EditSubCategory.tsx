@@ -5,7 +5,7 @@ import SecondaryHeader from "@/components/shared/SecondaryHeader";
 import { Input } from "@/components/ui/input";
 import { SelectContent, SelectItem } from "@/components/ui/select";
 import { useDebounce } from "@/hooks/useDebounce";
-import { useAddSubcategory, useEditSubcategory, useGetCategories, useGetSubcategoryById } from "@/lib/api/categories";
+import {  useEditSubcategory, useGetCategories, useGetSubcategoryById } from "@/lib/api/categories";
 import { Form, Formik } from "formik";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
