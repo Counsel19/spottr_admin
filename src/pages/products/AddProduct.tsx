@@ -137,7 +137,7 @@ const AddProduct = () => {
               formData.append("sub_category_id", values.subCategoryId);
             formData.append("weight", values.weight);
             formData.append("dimension", values.dimension);
-            formData.append("product_code", Date.now.toString());
+            formData.append("product_code", values.productCode);
             formData.append(
               "additional_specification",
               values.additionalSpecification
@@ -187,7 +187,7 @@ const AddProduct = () => {
               title="Add New Product"
               subTitle="Fill details to add new Product"
               addButtonText="Add Product"
-              addButtonFunc={() => {}}
+              addButtonFunc={() => { }}
               addButtonType="submit"
               removeButtonFunc={() => navigate(-1)}
               removeButtonText="Cancel"
@@ -331,7 +331,7 @@ const AddProduct = () => {
                           values.productImageThree,
                           values.productImageFour,
                         ].map((file, index) => {
-                          if (file) {
+                          if (file && file instanceof File) {
                             return (
                               <div
                                 key={index}
@@ -502,10 +502,10 @@ const AddProduct = () => {
                     <Card>
                       <CardHeader>
                         <CardTitle className="text-[1.4rem] font-semibold">
-                          Availability
+                          Availability & Product Code
                         </CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="space-y-[1rem]">
                         <CustomFormikSelect
                           label="Is Product Available?"
                           name="isAvailable"
@@ -527,7 +527,14 @@ const AddProduct = () => {
                             </SelectItem>
                           </SelectContent>
                         </CustomFormikSelect>
+                        <CustomFormikInput
+                          name="productCode"
+                          label="Product code"
+                          placeholder="Enter the product Code"
+                          type="text"
+                        />
                       </CardContent>
+
                     </Card>
 
                     {/* Variations */}

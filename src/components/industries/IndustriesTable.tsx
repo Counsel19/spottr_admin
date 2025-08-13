@@ -1,6 +1,6 @@
 import { useDebounce } from "@/hooks/useDebounce";
 import { usePaginationMeta } from "@/hooks/usePaginatedMeta";
-import { useGetIndustries } from "@/lib/api/industries";
+import { useDeleteIndustry, useGetIndustries } from "@/lib/api/industries";
 import { useState } from "react";
 import DataLoader from "../shared/DataLoader";
 import { TableSkeleton } from "../ui/table-skeleton";
@@ -9,6 +9,8 @@ import { AppTable } from "../shared/AppTable";
 import { AppPagination } from "../shared/molecules/AppPagination";
 import { toast } from "sonner";
 import IndustryRecord from "./IndustryRecord";
+import { useQueryClient } from "@tanstack/react-query";
+import ConfirmationModal from "../shared/ConfirmationModal";
 
 interface IndustriesTableProps {
   searchTerm: string;
@@ -16,18 +18,31 @@ interface IndustriesTableProps {
 
 const IndustriesTable = ({ searchTerm }: IndustriesTableProps) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const queryClient = useQueryClient();
+
+  const [showModal, setShowModal] = useState(false)
+  const [selectedIndustryDetails, setSelectedIndustryDetails] = useState<{
+    id: string,
+    name: string,
+  } | null>(null)
 
   const deboucedSearchValue = useDebounce(searchTerm, 2000);
 
   const { data, isLoading, error, isError } = useGetIndustries({
-    per_page: 20,
     search: deboucedSearchValue,
   });
+
+  console.log(data, "data")
+  console.log(data?.pagination, "data?pagination")
+
+  const deleteIndustryMutate = useDeleteIndustry()
 
   const { itemsPerPage, totalItems, totalPages } = usePaginationMeta(
     setCurrentPage,
     data?.pagination
   );
+
+  console.log(itemsPerPage, totalItems, totalPages)
 
   const onPageChange = () => {
     setCurrentPage((cur) => cur + 1);
@@ -58,7 +73,9 @@ const IndustriesTable = ({ searchTerm }: IndustriesTableProps) => {
           </div>
         }
       >
-        <AppTable columns={IndustryRecord} data={data?.data as IIndustry[]} />
+        <AppTable columns={IndustryRecord({
+          setSelectedIndustryDetails, setShowModal
+        })} data={data?.data as IIndustry[]} />
       </DataLoader>
 
       {data?.pagination && (
@@ -75,6 +92,19 @@ const IndustriesTable = ({ searchTerm }: IndustriesTableProps) => {
       )}
 
       {isError && error.message && toast.error(error.message)}
+
+      {showModal && selectedIndustryDetails && <ConfirmationModal type={"danger"} title="Are you sure you want to proceed?" isLoading={deleteIndustryMutate.isPending}
+        proceedFunc={async () => {
+          await deleteIndustryMutate.mutateAsync(selectedIndustryDetails.id)
+          setShowModal(false)
+
+          queryClient.invalidateQueries({
+            queryKey: ["industries", deboucedSearchValue, ],
+          });
+        }} description={`Are you sure you wan to delete this industry - (${selectedIndustryDetails.name})?`} cancelFunc={() => {
+          setShowModal(false)
+          setSelectedIndustryDetails(null)
+        }} />}
     </div>
   );
 };

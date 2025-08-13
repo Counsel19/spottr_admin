@@ -88,7 +88,7 @@ const UploadImgArea = ({
       {preview && (
         <div className="flex gap-4 items-center">
           <Button {...getRootProps()} variant={"ghost"}>
-            <Pen size={18} />
+            <Pen className="size-6" />
           </Button>
           <Button
             onClick={() => {
@@ -96,7 +96,7 @@ const UploadImgArea = ({
             }}
             variant={"ghost"}
           >
-            <Trash2 size={18} />
+            <Trash2 className="size-6" />
           </Button>
         </div>
       )}

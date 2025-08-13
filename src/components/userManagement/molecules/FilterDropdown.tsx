@@ -31,12 +31,12 @@ function FilterDropdown({ filterGroups, onChange }: FilterByDropdownProps) {
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-4">
+    <div className="flex lg:min-w-[35rem] flex-col md:flex-row justify-between gap-4">
       {/* Dropdown 1: Filter by */}
-      <div className="flex gap-1 items-center w-full">
-        <label className="text-[1.4rem] ">Filter By</label>
+      <div className="flex gap-1 items-center ">
+        <label htmlFor="filterKey" className="text-[1.4rem] ">Filter By</label>
         <Select value={selectedKey} onValueChange={handleKeyChange}>
-          <SelectTrigger className="data-[size=default]:h-[4rem]">
+          <SelectTrigger id="filterKey" className="data-[size=default]:h-[4rem]">
             <SelectValue placeholder="Select filter" />
           </SelectTrigger>
           <SelectContent>
@@ -50,11 +50,11 @@ function FilterDropdown({ filterGroups, onChange }: FilterByDropdownProps) {
       </div>
 
       {/* Dropdown 2: Filter value */}
-      <div className="flex items-center  gap-1 w-full">
-        <label className="text-[1.4rem] w-full">Filter Key</label>
+      <div className="flex items-center  gap-1">
+        <label htmlFor="filterValue" className="text-[1.4rem] w-full">Filter Key</label>
         {selectedKey && currentGroup ? (
           <Select value={selectedValue} onValueChange={handleValueChange}>
-            <SelectTrigger className="data-[size=default]:h-[4rem]">
+            <SelectTrigger id="filterValue" className="data-[size=default]:h-[4rem]">
               <SelectValue placeholder={`Select ${currentGroup.label}`} />
             </SelectTrigger>
             <SelectContent>

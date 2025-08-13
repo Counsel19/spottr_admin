@@ -13,6 +13,7 @@ import { getStatusBadgeColor } from "@/lib/utils";
 import type { Column } from "../shared/AppTable";
 import { Link } from "react-router-dom";
 import routeConstants from "@/constants/routes";
+import ProductImgAvatar from "../shared/molecules/ProductImgAvatar";
 
 const SubscriptionPlanRecord: Column<ISubscribersPlan>[] = [
   {
@@ -24,11 +25,10 @@ const SubscriptionPlanRecord: Column<ISubscribersPlan>[] = [
     key: "image",
     header: "Image",
     render: (plan) => (
-      <UserAvatar
-        imgUrl={plan.image || ""}
+      <ProductImgAvatar
+        url={plan.image || ""}
         name={plan.name || "N/A"}
-        height="h-[4rem]"
-        width="w-[4rem]"
+
       />
     ),
   },

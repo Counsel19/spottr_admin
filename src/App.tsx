@@ -15,7 +15,6 @@ import TransactionHome from "./pages/transactions/TransactionHome";
 import CorporateManagement from "./pages/usersManagement/CorporateManagement";
 import IndividualManager from "./pages/usersManagement/IndividualManager";
 import SingleProductDetails from "./pages/products/SingleProductDetails";
-import UpdateProduct from "./pages/products/UpdateProduct";
 import ProductRequestHome from "./pages/products/ProductRequestHome";
 import { individualUserType } from "./constants/enums";
 import AddCorporateUser from "./pages/usersManagement/AddCorporateUser";
@@ -31,6 +30,13 @@ import SubscribedUserHome from "./pages/subscription/SubscribedUserHome";
 import SubscriptionPlanHome from "./pages/subscription/SubscriptionPlanHome";
 import AddSubscriptionPlan from "./pages/subscription/AddSubscriptionPlan";
 import EditSubscriptionPlan from "./pages/subscription/EditSubscriptionPlan";
+import ViewUser from "./pages/usersManagement/ViewUser";
+import EditCorporateUser from "./pages/usersManagement/EditCorporateUser";
+import EditIndustry from "./pages/industries/EditIndustry";
+import EditCategory from "./pages/categories/EditCategory";
+import EditSubCategory from "./pages/categories/EditSubCategory";
+import EditBrand from "./pages/brand/EditBrand";
+import EditProduct from "./pages/products/EditProduct";
 
 function App() {
   return (
@@ -56,29 +62,35 @@ function App() {
           <Route path="corporate">
             <Route index element={<CorporateManagement />} />
             <Route path="add" element={<AddCorporateUser />} />
+            <Route path=":userId" element={<ViewUser />} />
+            <Route path=":userId/edit" element={<EditCorporateUser />} />
           </Route>
         </Route>
         <Route path="industries">
           <Route index element={<IndustriesHome />} />
           <Route path="update" element={<IndustriesHome />} />
           <Route path="add" element={<AddIndustries />} />
+          <Route path=":industryId/edit" element={<EditIndustry />} />
         </Route>
         <Route path="categories">
           <Route index element={<CategoryHome />} />
+          <Route path=":categoryId/edit" element={<EditCategory />} />
           <Route path="add" element={<AddCategories />} />
           <Route path="sub" element={<SubcategoryHome />} />
           <Route path="sub/add" element={<AddSubcategories />} />
+          <Route path=":subCategoryId/edit" element={<EditSubCategory />} />
         </Route>
         <Route path="brands">
           <Route index element={<BrandHome />} />
           <Route path="add" element={<AddBrand />} />
+          <Route path=":brandId/edit" element={<EditBrand />} />
         </Route>
         <Route path="products">
           <Route index element={<ProductHome />} />
           <Route path="add" element={<AddProduct />} />
           <Route path="request" element={<ProductRequestHome />} />
           <Route path=":productId" element={<SingleProductDetails />} />
-          <Route path=":productId/update" element={<UpdateProduct />} />
+          <Route path=":productId/edit" element={<EditProduct />} />
         </Route>
         <Route path="subscription">
           <Route path="users" element={<SubscribedUserHome />} />

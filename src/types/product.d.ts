@@ -103,10 +103,10 @@ interface IProductForm {
   tags: string[];
   isAvailable: string;
   price: string;
-  productImageOne: File | null;
-  productImageTwo: File | null;
-  productImageThree: File | null;
-  productImageFour: File | null;
+  productImageOne: string | File | null;
+  productImageTwo: string |  File | null;
+  productImageThree: string |  File | null;
+  productImageFour: string |  File | null;
 }
 
 interface IProductRequest {

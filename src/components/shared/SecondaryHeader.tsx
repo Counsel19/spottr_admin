@@ -46,6 +46,7 @@ const SecondaryHeader = ({
           <Button
             onClick={removeButtonFunc ? removeButtonFunc : () => {}}
             variant={"ghost"}
+            type="button"
             className="text-white rounded-[3rem] bg-destructive hover:bg-destructive/50 font-medium"
           >
             <X className="size-6" />

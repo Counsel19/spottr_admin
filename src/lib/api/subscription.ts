@@ -25,6 +25,14 @@ export const useGetAllSubscriptionPlan = (params: IGetQueryParams) => {
     refetchOnWindowFocus: true,
   });
 };
+export const useGetSubscriptionPlanById = (planId?: string) => {
+  return useQuery<ISubscribersPlan, ErrorType>({
+    queryKey: ["subscription-plans", planId],
+    queryFn: () => SubcriptionService.getSubcriptionPlanById(planId),
+    refetchOnWindowFocus: true,
+    enabled: !!planId,
+  });
+};
 
 export const useAddSbscriptionPlan = () => {
   return useMutation<ISubscribersPlan, ErrorType, FormData>({

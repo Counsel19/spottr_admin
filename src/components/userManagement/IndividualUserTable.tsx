@@ -14,6 +14,7 @@ import { UserRoles, type individualUserType } from "@/constants/enums";
 interface UserTableProps {
   searchTerm: string;
   userType: individualUserType;
+  isActive?: boolean | null;
   setSearchTerm: (term: string) => void;
   selectedRole: string;
   setSelectedRole: (role: string) => void;
@@ -22,17 +23,28 @@ interface UserTableProps {
 export const IndividualUserTable = ({
   searchTerm,
   userType,
+  isActive,
 }: UserTableProps) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const deboucedSearchValue = useDebounce(searchTerm, 2000);
 
-  const { data, isLoading, error, isError } = useGetAllUsers({
-    role: UserRoles.individual,
-    type: userType,
-    per_page: 20,
-    search: deboucedSearchValue,
-  });
+  const returnQuery = () => {
+    const query: IGetUserQueryParams = {
+      role: UserRoles.individual,
+      search: deboucedSearchValue,
+    };
+    if (isActive !== null) {
+      query.is_active = isActive;
+    }
+    if (userType) {
+      query.type = userType;
+    }
+
+    return query;
+  };
+
+  const { data, isLoading, error, isError } = useGetAllUsers(returnQuery());
 
   const { itemsPerPage, totalItems, totalPages } = usePaginationMeta(
     setCurrentPage,

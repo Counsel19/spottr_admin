@@ -79,7 +79,7 @@ const SingleProductDetails = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { productId } = useParams();
 
-  const handleProductDelete = () => {};
+  const handleProductDelete = () => { };
 
   return (
     <div className="p-[1rem] space-y-[4rem] ">

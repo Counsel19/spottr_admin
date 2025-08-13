@@ -7,30 +7,46 @@ import { AppTable } from "../shared/AppTable";
 import { AppPagination } from "../shared/molecules/AppPagination";
 import { toast } from "sonner";
 import {
+  useDeleteProduct,
   useGetAllProducts,
   useGetAllProductsRequest,
 } from "@/lib/api/products";
 import { PackageSearch } from "lucide-react";
 import ProductRecord from "./ProductRecord";
+import ConfirmationModal from "../shared/ConfirmationModal";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface ProductTableProps {
   searchTerm: string;
   isProductRequest?: boolean;
 }
 
+const perPage = Number(import.meta.env.VITE_DATA_PER_PAGE)
+
 const ProductTable = ({ searchTerm, isProductRequest }: ProductTableProps) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedProductDetails, setSelectedProductDetails] = useState<{
+    id: string,
+    isAvailable: boolean,
+    name: string,
+  } | null>(null)
+  const [showModal, setShowModal] = useState(false)
 
   const deboucedSearchValue = useDebounce(searchTerm, 2000);
 
   const getAllProductQuery = useGetAllProducts({
-    per_page: 20,
+    per_page: perPage,
     search: deboucedSearchValue,
   });
   const getAllProductRequestQuery = useGetAllProductsRequest({
-    per_page: 20,
+    per_page: perPage,
     search: deboucedSearchValue,
   });
+
+
+  const deleteProductMutate = useDeleteProduct()
+
+  const queryClient = useQueryClient();
 
   const returnActiveQuery = () =>
     isProductRequest ? getAllProductRequestQuery : getAllProductQuery;
@@ -77,7 +93,9 @@ const ProductTable = ({ searchTerm, isProductRequest }: ProductTableProps) => {
         }
       >
         <AppTable
-          columns={ProductRecord}
+          columns={ProductRecord({
+            setSelectedProductDetails, setShowModal
+          })}
           data={returnActiveQuery().data?.data as IProductDetails[]}
         />
       </DataLoader>
@@ -98,6 +116,21 @@ const ProductTable = ({ searchTerm, isProductRequest }: ProductTableProps) => {
       {returnActiveQuery().isError &&
         returnActiveQuery().error &&
         toast.error(returnActiveQuery().error?.message)}
+
+
+
+      {showModal && selectedProductDetails && <ConfirmationModal type={"danger"} title="Are you sure you want to proceed?" isLoading={deleteProductMutate.isPending}
+        proceedFunc={async () => {
+          await deleteProductMutate.mutateAsync(selectedProductDetails.id)
+          setShowModal(false)
+
+          queryClient.invalidateQueries({
+            queryKey: ["products", perPage, deboucedSearchValue,],
+          });
+        }} description={`Are you sure you wan to delete this Product - (${selectedProductDetails.name})?`} cancelFunc={() => {
+          setShowModal(false)
+          setSelectedProductDetails(null)
+        }} />}
     </div>
   );
 };

@@ -26,6 +26,7 @@ class ProductService {
       throw new Error(extractAxiosErrorMessage(error));
     }
   }
+
   static async getAllProductsRequest(params: IGetProductQueryParams) {
     try {
       const query = new URLSearchParams();
@@ -51,6 +52,15 @@ class ProductService {
     }
   }
 
+  static async getProductById(productId?: string) {
+    try {
+      const res = await axiosPrivate.get(`/products/${productId}`);
+      return res.data.data;
+    } catch (error) {
+      throw new Error(extractAxiosErrorMessage(error));
+    }
+  }
+
   static async addProduct(paylaod: FormData) {
     try {
       const res = await axiosPrivate.post(`/products`, paylaod, {
@@ -58,6 +68,32 @@ class ProductService {
           "Content-Type": "multipart/form-data",
         },
       });
+      return res.data;
+    } catch (error) {
+      throw new Error(extractAxiosErrorMessage(error));
+    }
+  }
+
+  
+  static async updateProduct(paylaod: {
+    data: FormData,
+    productId: string
+  }) {
+    try {
+      const res = await axiosPrivate.post(`/products/update/${paylaod.productId}`, paylaod.data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return res.data;
+    } catch (error) {
+      throw new Error(extractAxiosErrorMessage(error));
+    }
+  }
+
+  static async deleteProduct(productId: string) {
+    try {
+      const res = await axiosPrivate.delete(`/products/${productId}`);
       return res.data;
     } catch (error) {
       throw new Error(extractAxiosErrorMessage(error));

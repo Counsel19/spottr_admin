@@ -20,10 +20,37 @@ class IndustriesService {
       throw new Error(extractAxiosErrorMessage(error));
     }
   }
+  static async getIndustryById(industryId?: string) {
+    try {
+      const res = await axiosPrivate.get(`/industries/${industryId}`);
+      return res.data.data;
+    } catch (error) {
+      throw new Error(extractAxiosErrorMessage(error));
+    }
+  }
 
   static async addIndustry(paylaod: IAddIndustryPayload) {
     try {
       const res = await axiosPrivate.post(`/industries`, paylaod);
+      return res.data;
+    } catch (error) {
+      throw new Error(extractAxiosErrorMessage(error));
+    }
+  }
+  static async editIndustry(paylaod: {
+    data: IAddIndustryPayload,
+    industryId: string
+  }) {
+    try {
+      const res = await axiosPrivate.put(`/industries/${paylaod.industryId}`, paylaod.data);
+      return res.data;
+    } catch (error) {
+      throw new Error(extractAxiosErrorMessage(error));
+    }
+  }
+  static async deleteIndustry(industryId: string) {
+    try {
+      const res = await axiosPrivate.delete(`/industries/${industryId}`);
       return res.data;
     } catch (error) {
       throw new Error(extractAxiosErrorMessage(error));

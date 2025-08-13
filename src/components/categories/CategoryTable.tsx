@@ -8,7 +8,9 @@ import { AppPagination } from "../shared/molecules/AppPagination";
 import { toast } from "sonner";
 import CategoryItem from "./CategoryItem";
 import { BiCategory } from "react-icons/bi";
-import { useGetCategories } from "@/lib/api/categories";
+import { useDeleteCategory, useGetCategories } from "@/lib/api/categories";
+import { useQueryClient } from "@tanstack/react-query";
+import ConfirmationModal from "../shared/ConfirmationModal";
 
 interface CategoryTableProps {
   searchTerm: string;
@@ -16,6 +18,16 @@ interface CategoryTableProps {
 
 const CategoryTable = ({ searchTerm }: CategoryTableProps) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategoryDetails, setSelectedCategoryDetails] = useState<{
+    id: string,
+    name: string,
+  } | null>(null)
+  const [showModal, setShowModal] = useState(false)
+
+  const deletCategoryMutate = useDeleteCategory()
+  const queryClient = useQueryClient();
+
+
 
   const deboucedSearchValue = useDebounce(searchTerm, 2000);
 
@@ -58,7 +70,9 @@ const CategoryTable = ({ searchTerm }: CategoryTableProps) => {
           </div>
         }
       >
-        <AppTable columns={CategoryItem} data={data?.data as ICategory[]} />
+        <AppTable columns={CategoryItem({
+          setSelectedCategoryDetails, setShowModal
+        })} data={data?.data as ICategory[]} />
       </DataLoader>
 
       {data?.pagination && (
@@ -75,6 +89,19 @@ const CategoryTable = ({ searchTerm }: CategoryTableProps) => {
       )}
 
       {isError && error.message && toast.error(error.message)}
+
+      {showModal && selectedCategoryDetails && <ConfirmationModal type={"danger"} title="Are you sure you want to proceed?" isLoading={deletCategoryMutate.isPending}
+        proceedFunc={async () => {
+          await deletCategoryMutate.mutateAsync(selectedCategoryDetails.id)
+          setShowModal(false)
+
+          queryClient.invalidateQueries({
+            queryKey: ["category", deboucedSearchValue,],
+          });
+        }} description={`Are you sure you wan to delete this Category - (${selectedCategoryDetails.name})?`} cancelFunc={() => {
+          setShowModal(false)
+          setSelectedCategoryDetails(null)
+        }} />}
     </div>
   );
 };

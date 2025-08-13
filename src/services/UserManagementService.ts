@@ -25,6 +25,17 @@ class UserManagementService {
     }
   }
 
+  static async getSingleCorporateUser(corporateProfileId?: string) {
+    try {
+      const res = await axiosPrivate.get(
+        `/representatives/corporate/${corporateProfileId}`
+      );
+      return res.data;
+    } catch (error) {
+      throw new Error(extractAxiosErrorMessage(error));
+    }
+  }
+
   static async addCorporateUser(paylaod: FormData) {
     try {
       const res = await axiosPrivate.post(`/users/create/corporate`, paylaod, {
@@ -32,6 +43,39 @@ class UserManagementService {
           "Content-Type": "multipart/form-data",
         },
       });
+      return res.data;
+    } catch (error) {
+      throw new Error(extractAxiosErrorMessage(error));
+    }
+  }
+  static async updateCorporateUser(paylaod: {
+    data: FormData;
+    corporateId?: string;
+  }) {
+    try {
+      const res = await axiosPrivate.post(
+        `/users/update/${paylaod.corporateId}`,
+        paylaod.data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return res.data;
+    } catch (error) {
+      throw new Error(extractAxiosErrorMessage(error));
+    }
+  }
+
+  static async blockUnblockUser(payload: { is_active: boolean; id: string }) {
+    try {
+      const res = await axiosPrivate.patch(
+        `/users/block-unblock/${payload.id}`,
+        {
+          is_active: payload.is_active,
+        }
+      );
       return res.data;
     } catch (error) {
       throw new Error(extractAxiosErrorMessage(error));

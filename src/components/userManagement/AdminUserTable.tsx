@@ -53,7 +53,7 @@ export const AdminUserTable = ({ searchTerm }: UserTableProps) => {
           />
         }
         emptyState={
-          <div className="text-center py-10 space-y-6">
+          <div className="text-center py-[6rem] space-y-6">
             <Users className="size-20 text-gray-300 mx-auto mb-4" />
             <h3 className="text-[1.8rem] font-semibold">No users found</h3>
             <p className="text-[1.4rem] text-gray-500">

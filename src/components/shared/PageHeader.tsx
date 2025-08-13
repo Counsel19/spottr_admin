@@ -40,16 +40,14 @@ const PageHeader = ({
           <div></div>
         )}
 
-        <div className="flex items-center  gap-[1rem]">
-          <Searchbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <Searchbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
 
-          {handleFilterChange && filters ? (
-            <FilterDropdown
-              onChange={handleFilterChange}
-              filterGroups={filters}
-            />
-          ) : null}
-        </div>
+        {handleFilterChange && filters ? (
+          <FilterDropdown
+            onChange={handleFilterChange}
+            filterGroups={filters}
+          />
+        ) : null}
       </div>
     </div>
   );

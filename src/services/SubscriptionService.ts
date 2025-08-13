@@ -40,6 +40,14 @@ class SubcriptionService {
       throw new Error(extractAxiosErrorMessage(error));
     }
   }
+  static async getSubcriptionPlanById(planId?: string) {
+    try {
+      const res = await axiosPrivate.get(`/subscription-plans/${planId}`);
+      return res.data.data;
+    } catch (error) {
+      throw new Error(extractAxiosErrorMessage(error));
+    }
+  }
 
   static async addSubscriptionPlan(paylaod: FormData) {
     try {
@@ -97,7 +105,8 @@ class SubcriptionService {
   ) {
     try {
       const res = await axiosPrivate.post(
-        `/subscription-plans/${paylaod.id}/add-feature`
+        `/subscription-plans/${paylaod.id}/add-feature`,
+        paylaod
       );
       return res.data;
     } catch (error) {

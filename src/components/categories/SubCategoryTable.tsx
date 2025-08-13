@@ -7,8 +7,10 @@ import { AppTable } from "../shared/AppTable";
 import { AppPagination } from "../shared/molecules/AppPagination";
 import { toast } from "sonner";
 import { BiCategory } from "react-icons/bi";
-import {  useGetSubcategories } from "@/lib/api/categories";
+import { useDeleteSubCategory, useGetSubcategories } from "@/lib/api/categories";
 import SubcategoryItem from "./SubcategoryItem";
+import ConfirmationModal from "../shared/ConfirmationModal";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface SubCategoryTableProps {
   searchTerm: string;
@@ -16,6 +18,15 @@ interface SubCategoryTableProps {
 
 const SubCategoryTable = ({ searchTerm }: SubCategoryTableProps) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategoryDetails, setSelectedCategoryDetails] = useState<{
+    id: string,
+    name: string,
+  } | null>(null)
+  const [showModal, setShowModal] = useState(false)
+
+  const deleteSubcategoryMutate = useDeleteSubCategory()
+  const queryClient = useQueryClient();
+
 
   const deboucedSearchValue = useDebounce(searchTerm, 2000);
 
@@ -58,7 +69,9 @@ const SubCategoryTable = ({ searchTerm }: SubCategoryTableProps) => {
           </div>
         }
       >
-        <AppTable columns={SubcategoryItem} data={data?.data as ISubcategory[]} />
+        <AppTable columns={SubcategoryItem({
+          setSelectedCategoryDetails, setShowModal
+        })} data={data?.data as ISubcategory[]} />
       </DataLoader>
 
       {data?.pagination && (
@@ -75,6 +88,19 @@ const SubCategoryTable = ({ searchTerm }: SubCategoryTableProps) => {
       )}
 
       {isError && error.message && toast.error(error.message)}
+
+      {showModal && selectedCategoryDetails && <ConfirmationModal type={"danger"} title="Are you sure you want to proceed?" isLoading={deleteSubcategoryMutate.isPending}
+        proceedFunc={async () => {
+          await deleteSubcategoryMutate.mutateAsync(selectedCategoryDetails.id)
+          setShowModal(false)
+
+          queryClient.invalidateQueries({
+            queryKey: ["subCategories", deboucedSearchValue,],
+          });
+        }} description={`Are you sure you wan to delete this Subcategory - (${selectedCategoryDetails.name})?`} cancelFunc={() => {
+          setShowModal(false)
+          setSelectedCategoryDetails(null)
+        }} />}
     </div>
   );
 };

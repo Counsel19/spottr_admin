@@ -19,7 +19,7 @@ const Searchbar = ({
   return (
     <form
       className={cn(
-        "flex  items-center gap-3  text-gray-700 rounded-[0.8rem] border border-light-blue py-2 pl-3 pr-6",
+        "flex  items-center gap-3 lg:min-w-[25rem] text-gray-700 rounded-[0.8rem] border border-light-blue py-2 pl-3 pr-6",
         styleClasses
       )}
     >

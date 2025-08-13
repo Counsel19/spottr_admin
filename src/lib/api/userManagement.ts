@@ -11,11 +11,47 @@ export const useGetAllUsers = (params: IGetUserQueryParams) => {
   });
 };
 
+export const useGetSingleCorporateUser = (corporateUserId?: string) => {
+  return useQuery<UserProfile, ErrorType>({
+    queryKey: ["users", corporateUserId],
+    queryFn: () =>
+      UserManagementService.getSingleCorporateUser(corporateUserId),
+    enabled: !!corporateUserId,
+  });
+};
+
 export const useAddCorporateUser = () => {
   return useMutation<ICorporateUser, ErrorType, FormData>({
     mutationFn: UserManagementService.addCorporateUser,
     onSuccess: () => {
       toast.success("Corporate User Added Successfully");
+    },
+  });
+};
+export const useUpdateCorporateUser = () => {
+  return useMutation<
+    ICorporateUser,
+    ErrorType,
+    {
+      data: FormData;
+      corporateId?: string;
+    }
+  >({
+    mutationFn: UserManagementService.updateCorporateUser,
+    onSuccess: () => {
+      toast.success("Corporate User Updated Successfully");
+    },
+  });
+};
+export const useBlockUnblockUser = () => {
+  return useMutation<
+    ICorporateUser,
+    ErrorType,
+    { is_active: boolean; id: string }
+  >({
+    mutationFn: UserManagementService.blockUnblockUser,
+    onSuccess: () => {
+      toast.success("Corporate User Status Updated Successfully");
     },
   });
 };

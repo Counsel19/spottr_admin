@@ -19,6 +19,15 @@ class BrandsService {
     }
   }
 
+  static async getBrandById(brandId?: string) {
+    try {
+      const res = await axiosPrivate.get(`/brands/${brandId}`);
+      return res.data.data;
+    } catch (error) {
+      throw new Error(extractAxiosErrorMessage(error));
+    }
+  }
+
   static async addBrand(paylaod: FormData) {
     try {
       const res = await axiosPrivate.post(`/brands`, paylaod, {
@@ -26,6 +35,31 @@ class BrandsService {
           "Content-Type": "multipart/form-data",
         },
       });
+      return res.data;
+    } catch (error) {
+      throw new Error(extractAxiosErrorMessage(error));
+    }
+  }
+
+  
+  static async updateBrand(paylaod: {
+    data: FormData,
+    brandId: string
+  }) {
+    try {
+      const res = await axiosPrivate.post(`/brands/${paylaod.brandId}`, paylaod.data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return res.data;
+    } catch (error) {
+      throw new Error(extractAxiosErrorMessage(error));
+    }
+  }
+  static async deleteBrand(brandId: string) {
+    try {
+      const res = await axiosPrivate.delete(`/brands/${brandId}`);
       return res.data;
     } catch (error) {
       throw new Error(extractAxiosErrorMessage(error));

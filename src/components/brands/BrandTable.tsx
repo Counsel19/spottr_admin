@@ -8,7 +8,9 @@ import { useDebounce } from "@/hooks/useDebounce";
 import { useState } from "react";
 import { AppTable } from "../shared/AppTable";
 import BrandItem from "./BrandItem";
-import { useGetBrands } from "@/lib/api/brand";
+import { useDeleteBrand, useGetBrands } from "@/lib/api/brand";
+import ConfirmationModal from "../shared/ConfirmationModal";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface BrandTableProps {
   searchTerm: string;
@@ -16,12 +18,20 @@ interface BrandTableProps {
 
 const BrandTable = ({ searchTerm }: BrandTableProps) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedBrandDetails, setSelectedBrandDetails] = useState<{
+    id: string,
+    name: string,
+  } | null>(null)
+  const [showModal, setShowModal] = useState(false)
+  
+  const queryClient = useQueryClient();
 
   const deboucedSearchValue = useDebounce(searchTerm, 2000);
-
   const { data, isLoading, error, isError } = useGetBrands({
     search: deboucedSearchValue,
   });
+
+  const deleteBrandMutate = useDeleteBrand()
 
   const { itemsPerPage, totalItems, totalPages } = usePaginationMeta(
     setCurrentPage,
@@ -57,7 +67,9 @@ const BrandTable = ({ searchTerm }: BrandTableProps) => {
           </div>
         }
       >
-        <AppTable columns={BrandItem} data={data?.data as IBrand[]} />
+        <AppTable columns={BrandItem({
+          setSelectedBrandDetails, setShowModal
+        })} data={data?.data as IBrand[]} />
       </DataLoader>
 
       {data?.pagination && (
@@ -74,6 +86,19 @@ const BrandTable = ({ searchTerm }: BrandTableProps) => {
       )}
 
       {isError && error.message && toast.error(error.message)}
+
+      {showModal && selectedBrandDetails && <ConfirmationModal type={"danger"} title="Are you sure you want to proceed?" isLoading={deleteBrandMutate.isPending}
+        proceedFunc={async () => {
+          await deleteBrandMutate.mutateAsync(selectedBrandDetails.id)
+          setShowModal(false)
+
+          queryClient.invalidateQueries({
+            queryKey: ["brands", deboucedSearchValue,],
+          });
+        }} description={`Are you sure you wan to delete this Brand - (${selectedBrandDetails.name})?`} cancelFunc={() => {
+          setShowModal(false)
+          setSelectedBrandDetails(null)
+        }} />}
     </div>
   );
 };

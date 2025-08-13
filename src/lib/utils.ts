@@ -17,6 +17,18 @@ export const getStatusBadgeColor = (status: string) => {
   }
 };
 
+
+export const getTransactionColor = (status: string) => {
+  switch (status.toLowerCase()) {
+    case "unsuccessfull":
+      return "bg-red-100 text-red-700 hover:bg-red-200";
+    case "successful":
+      return "bg-green-100 text-green-700 hover:bg-green-200";
+    default:
+      return "bg-gray-100 text-gray-700 hover:bg-gray-200";
+  }
+};
+
 export const getRoleBadgeColor = (role: string) => {
   switch (role.toLowerCase()) {
     case "administrator":

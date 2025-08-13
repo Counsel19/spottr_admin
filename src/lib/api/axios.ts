@@ -37,9 +37,12 @@ const errorHandler = (error: AxiosError) => {
   }
 
   switch (error.status) {
-    case 401:
-    case 403: {
+    case 401: {
       toast.error("Looks like your session has expired, please login again.");
+      break;
+    }
+    case 403: {
+      toast.error("Looks like you cannot perform this task .");
       break;
     }
 

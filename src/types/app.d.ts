@@ -9,6 +9,7 @@ interface IPaginationData {
   prev_page_url: string | null;
   total: number;
   per_page: number;
+  
 }
 
 interface IGetQueryParams {

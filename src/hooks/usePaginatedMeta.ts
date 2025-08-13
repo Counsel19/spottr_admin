@@ -13,9 +13,11 @@ export function usePaginationMeta(
         itemsPerPage: 10,
       };
 
-    const { total, per_page, current_page } = pagination;
+    let { total, per_page, current_page } = pagination;
 
-    const totalPages = Math.ceil(total / per_page);
+    per_page = per_page || Number(import.meta.env.VITE_DATA_PER_PAGE)
+
+    const totalPages = Math.ceil(total / per_page );
 
     setCurrentPage(current_page);
 
