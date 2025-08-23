@@ -24,13 +24,19 @@ class UserManagementService {
       throw new Error(extractAxiosErrorMessage(error));
     }
   }
-
-  static async getSingleCorporateUser(corporateProfileId?: string) {
+  static async getCorporateRepDetails(corporateId?: string) {
     try {
-      const res = await axiosPrivate.get(
-        `/representatives/corporate/${corporateProfileId}`
-      );
-      return res.data;
+      const res = await axiosPrivate.get(`/representatives/corporate/${corporateId}`);
+      return res.data.data;
+    } catch (error) {
+      throw new Error(extractAxiosErrorMessage(error));
+    }
+  }
+
+  static async getSingleUser(userId?: string) {
+    try {
+      const res = await axiosPrivate.get(`/users/${userId}`);
+      return res.data.data;
     } catch (error) {
       throw new Error(extractAxiosErrorMessage(error));
     }
@@ -50,12 +56,12 @@ class UserManagementService {
   }
   static async updateCorporateUser(paylaod: {
     data: FormData;
-    corporateId?: string;
+    userId: string;
   }) {
     try {
       const res = await axiosPrivate.post(
-        `/users/update/${paylaod.corporateId}`,
-        paylaod.data,
+        `/users/update/corporate/${paylaod.userId}`,
+        paylaod,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -67,13 +73,16 @@ class UserManagementService {
       throw new Error(extractAxiosErrorMessage(error));
     }
   }
-
-  static async blockUnblockUser(payload: { is_active: boolean; id: string }) {
+  // useBlockUnblockUser
+  static async blockUnblockUser(payload: {
+    userId: string;
+    isActive: boolean;
+  }) {
     try {
       const res = await axiosPrivate.patch(
-        `/users/block-unblock/${payload.id}`,
+        `/users/block-unblock/${payload.userId}`,
         {
-          is_active: payload.is_active,
+          is_active: payload.isActive,
         }
       );
       return res.data;

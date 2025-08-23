@@ -64,13 +64,13 @@ const ProductRecord = ({ setSelectedProductDetails, setShowModal }: ProductRecor
     {
       key: "subcategory.name",
       header: "Sub Category",
-      render: (product) => <span>{product.subcategory.name}</span>,
+      render: (product) => <span className="capitalize">{product.subcategory.name}</span>,
     },
 
     {
       key: "brand.name",
       header: "Brand",
-      render: (product) => <span>{product.brand.name}</span>,
+      render: (product) => <span>{product.brand?.name || "N/A"}</span>,
     },
     {
       key: "status",

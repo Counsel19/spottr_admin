@@ -11,15 +11,6 @@ export const useGetAllUsers = (params: IGetUserQueryParams) => {
   });
 };
 
-export const useGetSingleCorporateUser = (corporateUserId?: string) => {
-  return useQuery<UserProfile, ErrorType>({
-    queryKey: ["users", corporateUserId],
-    queryFn: () =>
-      UserManagementService.getSingleCorporateUser(corporateUserId),
-    enabled: !!corporateUserId,
-  });
-};
-
 export const useAddCorporateUser = () => {
   return useMutation<ICorporateUser, ErrorType, FormData>({
     mutationFn: UserManagementService.addCorporateUser,
@@ -28,13 +19,14 @@ export const useAddCorporateUser = () => {
     },
   });
 };
+
 export const useUpdateCorporateUser = () => {
   return useMutation<
     ICorporateUser,
     ErrorType,
     {
       data: FormData;
-      corporateId?: string;
+      userId: string;
     }
   >({
     mutationFn: UserManagementService.updateCorporateUser,
@@ -43,15 +35,46 @@ export const useUpdateCorporateUser = () => {
     },
   });
 };
+
 export const useBlockUnblockUser = () => {
   return useMutation<
-    ICorporateUser,
+    ICorporateProfile,
     ErrorType,
-    { is_active: boolean; id: string }
+    {
+      isActive: boolean;
+      userId: string;
+    }
   >({
     mutationFn: UserManagementService.blockUnblockUser,
     onSuccess: () => {
-      toast.success("Corporate User Status Updated Successfully");
+      toast.success("Corporate User active status updated Successfully");
     },
+  });
+};
+
+export const useGetSingleCorporateUser = (userId?: string) => {
+  return useQuery<ICorporateUser, ErrorType>({
+    queryKey: ["corporate-user", userId],
+    queryFn: () => UserManagementService.getSingleUser(userId),
+    enabled: !!userId,
+  });
+};
+
+export const useGetSingleIndividualUser = (userId?: string) => {
+  return useQuery<IIndividualUser, ErrorType>({
+    queryKey: ["individual-user", userId],
+    queryFn: () => UserManagementService.getSingleUser(userId),
+    refetchOnWindowFocus: true,
+    enabled: !!userId,
+  });
+};
+
+export const useGetCorporateRepDetails = (corporateProfieId?: string) => {
+  return useQuery<ICorporateRepDetails, ErrorType>({
+    queryKey: ["coporateRepDetails", corporateProfieId],
+    queryFn: () =>
+      UserManagementService.getCorporateRepDetails(corporateProfieId),
+    refetchOnWindowFocus: true,
+    enabled: !!corporateProfieId,
   });
 };

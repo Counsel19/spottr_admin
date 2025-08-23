@@ -25,15 +25,14 @@ export const CorporateUserTable = ({
   searchTerm,
   isActive,
 }: UserTableProps) => {
-
   const queryClient = useQueryClient();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(false);
   const [selectedProfileDetails, setSelectedProfileDetails] = useState<{
-    id: string,
-    isActive: boolean
-  } | null>(null)
+    id: string;
+    isActive: boolean;
+  } | null>(null);
   const deboucedSearchValue = useDebounce(searchTerm, 2000);
 
   const returnQuery = () => {
@@ -48,7 +47,7 @@ export const CorporateUserTable = ({
     return query;
   };
 
-  const { data, isLoading, error, isError, } = useGetAllUsers(returnQuery());
+  const { data, isLoading, error, isError } = useGetAllUsers(returnQuery());
 
   const { itemsPerPage, totalItems, totalPages } = usePaginationMeta(
     setCurrentPage,
@@ -56,7 +55,6 @@ export const CorporateUserTable = ({
   );
 
   const blockUnblockUserMutate = useBlockUnblockUser();
-
 
   const onPageChange = () => {
     setCurrentPage((cur) => cur + 1);
@@ -89,7 +87,8 @@ export const CorporateUserTable = ({
       >
         <AppTable
           columns={CorporateUserRecord({
-            setSelectedProfileDetails, setShowModal
+            setSelectedProfileDetails,
+            setShowModal,
           })}
           data={data?.data as ICorporateUser[]}
         />
@@ -109,22 +108,37 @@ export const CorporateUserTable = ({
       )}
 
       {isError && error.message && toast.error(error.message)}
-      {showModal && selectedProfileDetails && <ConfirmationModal type={selectedProfileDetails?.isActive ? "danger" : "success"} title="Are you sure you want to proceed?" isLoading={blockUnblockUserMutate.isPending}
-        proceedFunc={async () => {
-          await blockUnblockUserMutate.mutateAsync({
-            is_active: !selectedProfileDetails.isActive,
-            id: selectedProfileDetails.id
-          })
-          setShowModal(false)
-          const { per_page, is_active, role, type } = returnQuery()
+      {showModal && selectedProfileDetails && (
+        <ConfirmationModal
+          type={selectedProfileDetails?.isActive ? "danger" : "success"}
+          title="Are you sure you want to proceed?"
+          isLoading={blockUnblockUserMutate.isPending}
+          proceedFunc={async () => {
+            await blockUnblockUserMutate.mutateAsync({
+              isActive: !selectedProfileDetails.isActive,
+              userId: selectedProfileDetails.id,
+            });
+            setShowModal(false);
+            const { per_page, is_active, role, type } = returnQuery();
 
-          queryClient.invalidateQueries({
-            queryKey: ["users", is_active, per_page, role, deboucedSearchValue, type,],
-          });
-        }} description="Please confirm your action." cancelFunc={() => {
-          setShowModal(false)
-          setSelectedProfileDetails(null)
-        }} />}
+            queryClient.invalidateQueries({
+              queryKey: [
+                "users",
+                is_active,
+                per_page,
+                role,
+                deboucedSearchValue,
+                type,
+              ],
+            });
+          }}
+          description="Please confirm your action."
+          cancelFunc={() => {
+            setShowModal(false);
+            setSelectedProfileDetails(null);
+          }}
+        />
+      )}
     </div>
   );
 };

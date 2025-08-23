@@ -37,7 +37,7 @@ interface ICorporateProfile {
   company_size?: string | null;
   company_address: string;
   company_description: string;
-  tags?: string | null;
+  tags?: string[] | null;
   website_url?: string | null;
   created_at: string;
   updated_at: string;
@@ -69,15 +69,35 @@ type GenericUser = Omit<IIndividualUser, "role" | "profile"> & {
 type UserProfile = {
   id: string;
   user_id: string;
-  first_name: string | null;
-  last_name: string | null;
-  address: string | null;
+  first_name: string;
+  last_name: string;
+  address: null | string;
   bio: string | null;
-  type: "buyer";
+  type: "buyer" | "seller";
+  store_name: string | null;
+  store_email: string | null;
+  store_phone: string | null;
+  store_bg_image: string | null;
+  store_profile_image: string | null;
+  store_desc: string | null;
   verification_level: string;
   created_at: string;
   updated_at: string;
 };
+
+interface ICorporateRepDetails {
+  id: string;
+  corporate_profile_id: string;
+  job_title: string;
+  email: string;
+  phone: string;
+  pic: string;
+  first_name: string;
+  last_name: string;
+  bio: string;
+  created_at: string;
+  updated_at: string;
+}
 
 interface UserLoginDetails {
   email: string;

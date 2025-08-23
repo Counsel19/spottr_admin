@@ -15,21 +15,30 @@ const Login = () => {
       />
 
       <h3 className="text-[2.4rem] text-primary font-bold leading-[2.4rem]">
-        Create an account
+        Reset Password
       </h3>
 
-      <form className="space-y-[4rem]">
-        <div>
+      <form className="space-y-[2rem]">
+        <div className="grid gap-[1rem]">
           <label
             htmlFor="otp"
             className="font-semibold text-[1.5rem] text-primary"
           >
             Enter Password
           </label>
-          <Input placeholder="Password" type="password" />
+          <Input placeholder="Password" name="password" type="password" />
+        </div>
+        <div className="grid gap-[1rem]">
+          <label
+            htmlFor="otp"
+            className="font-semibold text-[1.5rem] text-primary"
+          >
+            Enter Confirm Password
+          </label>
+          <Input placeholder="Password" name="resetPassword" type="password" />
         </div>
 
-        <ul className="text-[1.4rem] ">
+        <ul className="text-[1.4rem] mt-[2rem]">
           <li> 12 Characters, Minimum</li>
           <li>Includes Number</li>
           <li>Symbols</li>

@@ -10,7 +10,7 @@ const IndustriesHome = () => {
         <div className="p-[1rem] space-y-[4rem] ">
             <SecondaryHeader
                 title="View Transactions"
-                subTitle="View my transactions here"
+                subTitle="View Transactions here"
 
             />
 

@@ -15,6 +15,7 @@ export const useGetIndustryById = (industryId?: string) => {
     queryKey: ["industries", industryId],
     queryFn: () => IndustriesService.getIndustryById(industryId),
     refetchOnWindowFocus: true,
+    enabled: !!industryId
   });
 };
 

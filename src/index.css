@@ -28,6 +28,10 @@ button {
   display: none; /* Chrome, Safari */
 }
 
+.header-gradient {
+  background: linear-gradient(90deg, #0b2a64 0%, #1151c8 100%);
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
