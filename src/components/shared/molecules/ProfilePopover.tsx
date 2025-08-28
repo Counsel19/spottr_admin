@@ -46,9 +46,9 @@ export const ProfilePopOver = () => {
             <h6 className="text-[1.2rem] font-semibold text-[#4D5464]">
               Okpabi Counsel
             </h6>
-            <span className="text-[#667085] text-[1.2rem]">Admin</span>
+            <span className="text-text-secondary text-[1.2rem]">Admin</span>
           </div>
-          <ChevronDown className="size-8 text-[#667085]" />
+          <ChevronDown className="size-8 text-text-secondary" />
         </div>
       </PopoverTrigger>
       <PopoverContent

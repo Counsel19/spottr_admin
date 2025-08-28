@@ -64,7 +64,6 @@ export const useGetSingleIndividualUser = (userId?: string) => {
   return useQuery<IIndividualUser, ErrorType>({
     queryKey: ["individual-user", userId],
     queryFn: () => UserManagementService.getSingleUser(userId),
-    refetchOnWindowFocus: true,
     enabled: !!userId,
   });
 };
@@ -74,7 +73,6 @@ export const useGetCorporateRepDetails = (corporateProfieId?: string) => {
     queryKey: ["coporateRepDetails", corporateProfieId],
     queryFn: () =>
       UserManagementService.getCorporateRepDetails(corporateProfieId),
-    refetchOnWindowFocus: true,
     enabled: !!corporateProfieId,
   });
 };

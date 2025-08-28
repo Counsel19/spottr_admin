@@ -30,13 +30,15 @@ import SubscribedUserHome from "./pages/subscription/SubscribedUserHome";
 import SubscriptionPlanHome from "./pages/subscription/SubscriptionPlanHome";
 import AddSubscriptionPlan from "./pages/subscription/AddSubscriptionPlan";
 import EditSubscriptionPlan from "./pages/subscription/EditSubscriptionPlan";
-import ViewUser from "./pages/usersManagement/ViewUser";
+import ViewCorporateUser from "./pages/usersManagement/ViewCorporateUser";
 import EditCorporateUser from "./pages/usersManagement/EditCorporateUser";
 import EditIndustry from "./pages/industries/EditIndustry";
 import EditCategory from "./pages/categories/EditCategory";
 import EditSubCategory from "./pages/categories/EditSubCategory";
 import EditBrand from "./pages/brand/EditBrand";
 import EditProduct from "./pages/products/EditProduct";
+import ViewIndividualUser from "./pages/usersManagement/ViewIndividualUser";
+import ViewSingleTransaction from "./pages/transactions/ViewSingleTransaction";
 
 function App() {
   return (
@@ -51,18 +53,28 @@ function App() {
         <Route index element={<DashbaordHome />} />
         <Route path="users">
           <Route path="admins" element={<AdminManagement />} />
-          <Route
-            path="buyer"
-            element={<IndividualManager userType={individualUserType.buyer} />}
-          />
-          <Route
-            path="seller"
-            element={<IndividualManager userType={individualUserType.seller} />}
-          />
+          <Route path="buyer">
+            <Route
+              index
+              element={
+                <IndividualManager userType={individualUserType.buyer} />
+              }
+            />
+            <Route path=":userId" element={<ViewIndividualUser />} />
+          </Route>
+          <Route path="seller">
+            <Route
+              index
+              element={
+                <IndividualManager userType={individualUserType.seller} />
+              }
+            />
+            <Route path=":userId" element={<ViewIndividualUser />} />
+          </Route>
           <Route path="corporate">
             <Route index element={<CorporateManagement />} />
             <Route path="add" element={<AddCorporateUser />} />
-            <Route path=":userId" element={<ViewUser />} />
+            <Route path=":userId" element={<ViewCorporateUser />} />
             <Route path=":userId/edit" element={<EditCorporateUser />} />
           </Route>
         </Route>
@@ -95,13 +107,18 @@ function App() {
         <Route path="subscription">
           <Route path="users" element={<SubscribedUserHome />} />
           <Route path="plans">
-            <Route  index element={<SubscriptionPlanHome />} />
-            <Route  path=":planId" element={<EditSubscriptionPlan />} />
+            <Route index element={<SubscriptionPlanHome />} />
+            <Route path=":planId" element={<EditSubscriptionPlan />} />
             <Route path="add" element={<AddSubscriptionPlan />} />
           </Route>
         </Route>
 
-        <Route path="transactions" element={<TransactionHome />} />
+        <Route path="transactions">
+          <Route index element={<TransactionHome />} />
+          <Route path=":transactionId" element={<ViewSingleTransaction />} />
+          <Route path="wallets" element={<TransactionHome />} />
+          <Route path="banks" element={<TransactionHome />} />
+        </Route>
         <Route path="analytics" element={<ComingSoon />} />
         <Route path="task" element={<ComingSoon />} />
         <Route path="ads" element={<ComingSoon />} />

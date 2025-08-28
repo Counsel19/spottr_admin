@@ -11,36 +11,51 @@ const routeConstants = {
   allAdds: "/dashboard/products",
   productRequest: "/dashboard/products/request",
   addProduct: "/dashboard/products/add",
-  editProduct:  (id?: string)  => `/dashboard/products/${id || ":id"}/edit`,
+  editProduct: (id?: string) => `/dashboard/products/${id || ":id"}/edit`,
 
   //usermanagement
   addCorporateUser: "/dashboard/users/corporate/add",
-  viewCorporateUser:  (id?: string)  => `/dashboard/users/corporate/${id || ":id"}`,
-  editCorporateUser:  (id?: string)  => `/dashboard/users/corporate/${id || ":id"}/edit`,
+  viewSellerUser: (id?: string) => `/dashboard/users/seller/${id || ":id"}`,
+  viewBuyerUser: (id?: string) => `/dashboard/users/buyer/${id || ":id"}`,
+  viewAdminUser: (id?: string) => `/dashboard/users/admin/${id || ":id"}`,
+  viewCorporateUser: (id?: string) =>
+    `/dashboard/users/corporate/${id || ":id"}`,
+  editCorporateUser: (id?: string) =>
+    `/dashboard/users/corporate/${id || ":id"}/edit`,
 
   //industries
   industries: "/dashboard/industries",
   addIndustries: "/dashboard/industries/add",
-  editIndustry: (id?: string) =>  `/dashboard/industries/${id || ":id"}/edit`,
+  editIndustry: (id?: string) => `/dashboard/industries/${id || ":id"}/edit`,
 
   //brands
   brands: "/dashboard/brands",
   addBrands: "/dashboard/brands/add",
-  editBrand: (id?: string) =>  `/dashboard/brands/${id || ":id"}/edit`,
-  
+  editBrand: (id?: string) => `/dashboard/brands/${id || ":id"}/edit`,
+
   //subscription
   subscribers: "/dashboard/subscription/users",
   subscriptionPlan: "/dashboard/subscription/plans",
   addSubscriptionPlan: "/dashboard/subscription/plans/add",
-  editSubscriptionPlan: (id?: string) => `/dashboard/subscription/plans/${id || ':id'}`,
-  
+  editSubscriptionPlan: (id?: string) =>
+    `/dashboard/subscription/plans/${id || ":id"}`,
+
   //categories
   categories: "/dashboard/categories",
   addCategories: "/dashboard/categories/add",
-  editCategory: (id?: string) =>  `/dashboard/categories/${id || ":id"}/edit`,
+  editCategory: (id?: string) => `/dashboard/categories/${id || ":id"}/edit`,
   subCategories: "/dashboard/categories/sub",
   addSubcategories: "/dashboard/categories/sub/add",
-  editSubCategory: (id?: string) =>  `/dashboard/categories/sub/${id || ":id"}/edit`,
+  editSubCategory: (id?: string) =>
+    `/dashboard/categories/sub/${id || ":id"}/edit`,
+
+  //transactions
+  transactions: "/dashboard/transactions",
+  viewTransaction: (id?: string) => `/dashboard/transactions/${id || ":id"}`,
+  wallets: "/dashboard/transactions/wallets",
+  viewWallet: (id?: string) => `/dashboard/transactions/wallets/${id || ":id"}`,
+  banks: "/dashboard/transactions/banks",
+  viewBank: (id?: string) => `/dashboard/transactions/banks/${id || ":id"}`,
 };
 
 export default routeConstants;

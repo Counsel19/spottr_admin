@@ -5,8 +5,8 @@ import TabsBoxButton from "./molecules/TabsBoxButton";
 import type React from "react";
 
 interface PageHeaderPops {
-  searchTerm: string;
-  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  searchTerm?: string;
+  setSearchTerm?: React.Dispatch<React.SetStateAction<string>>;
   tabList?: { name: string; path: string }[];
   buttonTabLink?: { index: number; name: string }[];
   activeIndex?: number;
@@ -40,7 +40,9 @@ const PageHeader = ({
           <div></div>
         )}
 
-        <Searchbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        {searchTerm && setSearchTerm && (
+          <Searchbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        )}
 
         {handleFilterChange && filters ? (
           <FilterDropdown

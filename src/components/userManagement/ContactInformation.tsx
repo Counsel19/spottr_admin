@@ -14,14 +14,14 @@ const ContactInformation = ({ email, phone }: ContactInformationProps) => {
 
       <div className="space-y-[1rem]">
         <div className="flex items-center gap-3">
-          <span className="text-secondary">
+          <span className="text-muted">
             <Mail />
           </span>
           <span className="text-[1.4rem] text-primary">{email}</span>
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="text-secondary">
+          <span className="text-muted">
             <Phone />
           </span>
           <span className="text-[1.4rem] text-primary">{phone}</span>

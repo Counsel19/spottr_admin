@@ -21,11 +21,15 @@ const DashbaordSidebar = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    const subLinks = sidebarLinks.find(
-      (item) => item.path == location.pathname
-    )?.subLinks;
-    dispatch(selectSubLinks(subLinks));
-  }, []);
+    // Find a matching main item or sublink
+    const matchedItem = sidebarLinks.find(
+      (item) =>
+        item.path === location.pathname ||
+        item.subLinks?.some((sub) => sub.path === location.pathname)
+    );
+
+    dispatch(selectSubLinks(matchedItem?.subLinks ?? []));
+  }, [location.pathname, dispatch]);
 
   return (
     <div className="shadow-[0px_2.59px_12.93px_0px_#00000012] space-y-4">
@@ -122,7 +126,7 @@ const sidebarLinks = [
   {
     name: "Subscription",
     icon: <FaRegPaperPlane className="size-8" />,
-    path: routeConstants. subscribers,
+    path: routeConstants.subscribers,
     subLinks: [
       {
         name: "Subscribers",
@@ -138,6 +142,20 @@ const sidebarLinks = [
     name: "Transactions",
     icon: <FaRegPaperPlane className="size-8" />,
     path: "/dashboard/transactions",
+    subLinks: [
+      {
+        name: "Transactions",
+        path: routeConstants.transactions,
+      },
+      {
+        name: "Wallet List",
+        path: routeConstants.wallets,
+      },
+      {
+        name: "Banks",
+        path: routeConstants.banks,
+      },
+    ],
   },
   {
     name: "Analytics",

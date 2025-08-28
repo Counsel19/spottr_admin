@@ -25,7 +25,16 @@ const SingleCorporateUser = () => {
 
   return data && !isLoading && !repIsLoading ? (
     <div>
-      <div className="mb-[2rem]">
+      <UserDetailsHeader
+        image={data.pic || "/images/no-image-placeholder.png"}
+        industryId={data.profile?.industry_id}
+        createdAt={data.created_at}
+        companyAddress={data.profile?.company_address || "N/A"}
+        companyName={data.profile?.company_name || "N/A"}
+        isActive={data.is_active || false}
+        role={data.role || "N/A"}
+      />
+      <div className="my-[2rem]">
         <TabsBoxButton
           activeindex={activeTab}
           tabs={[
@@ -44,16 +53,7 @@ const SingleCorporateUser = () => {
 
       {activeTab == 0 ? (
         <>
-          <UserDetailsHeader
-            image={data.pic || "/images/no-image-placeholder.png"}
-            industryId={data.profile?.industry_id}
-            createdAt={data.created_at}
-            companyAddress={data.profile?.company_address || "N/A"}
-            companyName={data.profile?.company_name || "N/A"}
-            isActive={data.is_active || false}
-            role={data.role || "N/A"}
-          />
-          <div className="mt-[4rem] p-[1rem] grid grid-cols-[3fr_2fr] gap-[2rem]">
+          <div className="mt-[2rem] p-[1rem] grid grid-cols-[3fr_2fr] gap-[2rem]">
             <div className="grid gap-[2rem]">
               <BasicDetails
                 id={data.id}

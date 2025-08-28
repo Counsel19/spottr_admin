@@ -30,7 +30,7 @@ const DeleteProductNoticeModal = ({
           </DialogTitle>
         </DialogHeader>
 
-        <p className="text-[1.4rem]  w-[60%] mx-auto text-center leading-[2.8rem] text-[#667085]">
+        <p className="text-[1.4rem]  w-[60%] mx-auto text-center leading-[2.8rem] text-text-secondary">
           Are you sure you want to delete this product? This action cannot be
           undone.
         </p>

@@ -1,14 +1,25 @@
 interface IAdminUser {
   id: string;
-  name: string;
-  email: string;
   role: string;
-  username: string;
-  phoneNumber: string;
+  user_name?: string;
+  email: string;
+  email_verified_at?: string | null;
+  phone?: string;
+  pic: string | null;
+  is_active?: boolean;
+  fiat_wallet?: string;
+  crypto_wallet?: string;
+  created_at?: string;
+  updated_at?: string;
+  deleted_at?: string | null;
+  deletion_scheduled_at?: string | null;
+  profile?: IAdminProfile;
+}
+interface IAdminProfile {
+  id: string;
+  name: string;
   permission: string;
   lastLogin: string;
-  status: "active" | "inactive";
-  avatar: string;
 }
 interface ICorporateUser {
   id: string;
@@ -17,7 +28,7 @@ interface ICorporateUser {
   email: string;
   email_verified_at?: string | null;
   phone?: string;
-  pic?: string;
+  pic: string | null;
   is_active?: boolean;
   fiat_wallet?: string;
   crypto_wallet?: string;

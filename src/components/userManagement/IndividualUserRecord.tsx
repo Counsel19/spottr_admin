@@ -7,7 +7,14 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { Edit, Trash2, UserX, UserCheck, MoreHorizontal } from "lucide-react";
+import {
+  Edit,
+  Trash2,
+  UserX,
+  UserCheck,
+  MoreHorizontal,
+  Eye,
+} from "lucide-react";
 import UserAvatar from "../shared/molecules/UserAvatar";
 import {
   getKYCLevelBadgeColor,
@@ -15,6 +22,8 @@ import {
   getStatusBadgeColor,
 } from "@/lib/utils";
 import type { Column } from "../shared/AppTable";
+import { Link } from "react-router-dom";
+import routeConstants from "@/constants/routes";
 
 const IndividualUserRecord: Column<IIndividualUser>[] = [
   {
@@ -110,6 +119,19 @@ const IndividualUserRecord: Column<IIndividualUser>[] = [
           align="end"
           className="w-[20rem] space-y-[1rem] p-4"
         >
+          <DropdownMenuItem className="gap-2">
+            <Link
+              className="flex gap-2"
+              to={
+                user.profile.type == "buyer"
+                  ? routeConstants.viewBuyerUser(user.profile?.user_id)
+                  : routeConstants.viewSellerUser(user.profile?.user_id)
+              }
+            >
+              <Eye className="size-6" />
+              View User
+            </Link>
+          </DropdownMenuItem>
           <DropdownMenuItem className="gap-2">
             <Edit className="size-6" />
             Edit User

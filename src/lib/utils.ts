@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const getStatusBadgeColor = (status: string) => {
+export const getStatusBadgeColor = (status = "inactive") => {
   switch (status.toLowerCase()) {
     case "inactive":
       return "bg-red-100 text-red-700 hover:bg-red-200";

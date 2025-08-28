@@ -1,7 +1,7 @@
 import SecondaryHeader from "@/components/shared/SecondaryHeader";
-import SingleCorporateUser from "@/components/userManagement/SingleCorporateUser";
+import SingleIndividualUser from "@/components/userManagement/SingleIndividualUser";
 
-const ViewUser = () => {
+const ViewIndividualUser = () => {
   return (
     <div className="p-[1rem] space-y-[4rem] ">
       <SecondaryHeader
@@ -11,9 +11,9 @@ const ViewUser = () => {
         showBackButton
       />
 
-      <SingleCorporateUser />
+      <SingleIndividualUser />
     </div>
   );
 };
 
-export default ViewUser;
+export default ViewIndividualUser;
