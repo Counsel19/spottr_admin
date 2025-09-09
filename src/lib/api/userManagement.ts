@@ -19,6 +19,14 @@ export const useAddCorporateUser = () => {
     },
   });
 };
+export const useAddAdminUser = () => {
+  return useMutation<IAdminUser, ErrorType, IAddAdminUser>({
+    mutationFn: UserManagementService.addAdminUser,
+    onSuccess: () => {
+      toast.success("Admin User Added Successfully");
+    },
+  });
+};
 
 export const useUpdateCorporateUser = () => {
   return useMutation<

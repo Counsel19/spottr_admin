@@ -1,4 +1,4 @@
-import ProductTable from "@/components/products/ProductTable";
+import ProductRequestTable from "@/components/products/ProductRequestTable";
 import PageHeader from "@/components/shared/PageHeader";
 import SecondaryHeader from "@/components/shared/SecondaryHeader";
 import type { RootState } from "@/lib/redux/store";
@@ -22,7 +22,7 @@ const ProductRequestHome = () => {
         setSearchTerm={setSearchTerm}
       />
 
-      <ProductTable searchTerm={searchTerm} isProductRequest />
+      <ProductRequestTable searchTerm={searchTerm}  />
     </div>
   );
 };

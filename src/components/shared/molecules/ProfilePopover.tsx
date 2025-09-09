@@ -11,16 +11,20 @@ import { cn } from "@/lib/utils";
 import { FaCircleUser } from "react-icons/fa6";
 import { ChevronDown } from "lucide-react";
 import { useLogout } from "@/hooks/useLogout";
+import { useSession } from "@/hooks/useSession";
+import routeConstants from "@/constants/routes";
 
 export const ProfilePopOver = () => {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const { user } = useSession();
+
   const logout = useLogout();
 
   const handleLogout = async () => {
     try {
-      logout()
+      logout();
       setOpen(false);
     } catch (error) {
       console.log(error);
@@ -41,12 +45,14 @@ export const ProfilePopOver = () => {
         )}
       >
         <div className="flex items-center gap-4">
-          <UserAvatar showStatus imgUrl="/images/avatar.png" name={"Admin"} />
+          <UserAvatar showStatus imgUrl={user?.pic || "/images/avatar.png"} name={"Admin"} />
           <div>
             <h6 className="text-[1.2rem] font-semibold text-[#4D5464]">
-              Okpabi Counsel
+              {user?.email || "Admin User"}
             </h6>
-            <span className="text-text-secondary text-[1.2rem]">Admin</span>
+            <span className="text-text-secondary text-[1.2rem]">
+              {user?.user_name || "Admin"}
+            </span>
           </div>
           <ChevronDown className="size-8 text-text-secondary" />
         </div>
@@ -63,11 +69,11 @@ export const ProfilePopOver = () => {
             className="flex flex-col gap-3 hover:text-primary  py-2 border-b border-muted "
           >
             <FaCircleUser size={26} />
-            <span>Adewale Adedamola</span>
+            <span>{user?.profile?.name || "No Name"}</span>
           </Link>
           <Link
             onClick={() => setOpen(false)}
-            to="/account/orders"
+            to={routeConstants.addAdmineUser}
             className="flex hover:text-primary  py-2 gap-3 items-center border-b border-muted "
           >
             Create a new admin account
