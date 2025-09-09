@@ -26,7 +26,9 @@ class UserManagementService {
   }
   static async getCorporateRepDetails(corporateId?: string) {
     try {
-      const res = await axiosPrivate.get(`/representatives/corporate/${corporateId}`);
+      const res = await axiosPrivate.get(
+        `/representatives/corporate/${corporateId}`
+      );
       return res.data.data;
     } catch (error) {
       throw new Error(extractAxiosErrorMessage(error));
@@ -49,6 +51,14 @@ class UserManagementService {
           "Content-Type": "multipart/form-data",
         },
       });
+      return res.data;
+    } catch (error) {
+      throw new Error(extractAxiosErrorMessage(error));
+    }
+  }
+  static async addAdminUser(paylaod: IAddAdminUser) {
+    try {
+      const res = await axiosPrivate.post(`/users/create/admin`, paylaod);
       return res.data;
     } catch (error) {
       throw new Error(extractAxiosErrorMessage(error));

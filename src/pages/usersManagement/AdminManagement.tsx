@@ -1,10 +1,12 @@
 import PageHeader from "@/components/shared/PageHeader";
 import SecondaryHeader from "@/components/shared/SecondaryHeader";
 import { AdminUserTable } from "@/components/userManagement/AdminUserTable";
+import routeConstants from "@/constants/routes";
 import type { RootState } from "@/lib/redux/store";
 
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const AdminManagement = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,12 +16,15 @@ const AdminManagement = () => {
 
   const handleFilterChange = () => {};
 
+  const navigate = useNavigate();
+
   return (
     <div className="p-[1rem] space-y-[4rem] ">
       <SecondaryHeader
         title="User Management"
         subTitle="Manage your super admins, corporate, users etc."
         addButtonText="Create New Admin"
+        addButtonFunc={() => navigate(routeConstants.addAdmineUser)}
       />
 
       <PageHeader

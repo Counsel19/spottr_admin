@@ -145,3 +145,10 @@ interface IAddCorporateUser {
   pic: string;
   kyc_doc;
 }
+
+interface IAddAdminUser {
+  email: string;
+  phone: string;
+  role: string;
+  user_name: string;
+}

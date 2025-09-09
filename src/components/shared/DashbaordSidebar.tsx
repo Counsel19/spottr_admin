@@ -21,12 +21,13 @@ const DashbaordSidebar = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    // Find a matching main item or sublink
-    const matchedItem = sidebarLinks.find(
-      (item) =>
+    // Find a matching main item or sublink (exact match only)
+    const matchedItem = sidebarLinks.find((item) => {
+      return (
         item.path === location.pathname ||
         item.subLinks?.some((sub) => sub.path === location.pathname)
-    );
+      );
+    });
 
     dispatch(selectSubLinks(matchedItem?.subLinks ?? []));
   }, [location.pathname, dispatch]);

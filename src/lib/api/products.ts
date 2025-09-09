@@ -12,7 +12,8 @@ export const useGetAllProducts = (params: IGetProductQueryParams) => {
 };
 export const useGetAllProductsRequest = (params: IGetUserQueryParams) => {
   const { is_active, per_page, role, search, type } = params;
-  return useQuery<IGetResponse<IProductDetails>, ErrorType>({
+
+  return useQuery<IGetResponse<IProductRequest>, ErrorType>({
     queryKey: ["products-request", is_active, per_page, role, search, type],
     queryFn: () => ProductService.getAllProductsRequest(params),
     refetchOnWindowFocus: true,
@@ -32,6 +33,38 @@ export const useAddProduct = () => {
     mutationFn: ProductService.addProduct,
     onSuccess: () => {
       toast.success("Product Added Successfully");
+    },
+  });
+};
+
+export const useApproveProductRequest = () => {
+  return useMutation<
+    IProductRequest,
+    ErrorType,
+    {
+      data: IApproveProductRequest;
+      productRequestId: string;
+    }
+  >({
+    mutationFn: ProductService.approveProductRequest,
+    onSuccess: () => {
+      toast.success("Product Request Approved Successfully");
+    },
+  });
+};
+
+export const useRejectProductRequest = () => {
+  return useMutation<
+    IProductRequest,
+    ErrorType,
+    {
+      data: IRejectProductRequest;
+      productRequestId: string;
+    }
+  >({
+    mutationFn: ProductService.rejectProductRequest,
+    onSuccess: () => {
+      toast.success("Product Request Rejected Successfully");
     },
   });
 };

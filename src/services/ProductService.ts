@@ -74,17 +74,47 @@ class ProductService {
     }
   }
 
-  
-  static async updateProduct(paylaod: {
-    data: FormData,
-    productId: string
+  static async approveProductRequest(paylaod: {
+    data: IApproveProductRequest;
+    productRequestId: string;
   }) {
     try {
-      const res = await axiosPrivate.post(`/products/update/${paylaod.productId}`, paylaod.data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const res = await axiosPrivate.post(
+        `/product-requests/approve/${paylaod.productRequestId}`,
+        paylaod.data
+      );
+      return res.data;
+    } catch (error) {
+      throw new Error(extractAxiosErrorMessage(error));
+    }
+  }
+
+  static async rejectProductRequest(paylaod: {
+    data: IRejectProductRequest;
+    productRequestId: string;
+  }) {
+    try {
+      const res = await axiosPrivate.post(
+        `/product-requests/reject/${paylaod.productRequestId}`,
+        paylaod.data
+      );
+      return res.data;
+    } catch (error) {
+      throw new Error(extractAxiosErrorMessage(error));
+    }
+  }
+
+  static async updateProduct(paylaod: { data: FormData; productId: string }) {
+    try {
+      const res = await axiosPrivate.post(
+        `/products/update/${paylaod.productId}`,
+        paylaod.data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       return res.data;
     } catch (error) {
       throw new Error(extractAxiosErrorMessage(error));

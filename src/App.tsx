@@ -39,6 +39,7 @@ import EditBrand from "./pages/brand/EditBrand";
 import EditProduct from "./pages/products/EditProduct";
 import ViewIndividualUser from "./pages/usersManagement/ViewIndividualUser";
 import ViewSingleTransaction from "./pages/transactions/ViewSingleTransaction";
+import AddAdminUser from "./pages/usersManagement/AddAdminUser";
 
 function App() {
   return (
@@ -52,7 +53,10 @@ function App() {
       <Route path="dashboard" element={<DashbaordLayout />}>
         <Route index element={<DashbaordHome />} />
         <Route path="users">
-          <Route path="admins" element={<AdminManagement />} />
+          <Route path="admins">
+            <Route index element={<AdminManagement />} />
+            <Route path="add" element={<AddAdminUser />} />
+          </Route>
           <Route path="buyer">
             <Route
               index

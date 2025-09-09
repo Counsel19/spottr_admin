@@ -104,9 +104,9 @@ interface IProductForm {
   isAvailable: string;
   price: string;
   productImageOne: string | File | null;
-  productImageTwo: string |  File | null;
-  productImageThree: string |  File | null;
-  productImageFour: string |  File | null;
+  productImageTwo: string | File | null;
+  productImageThree: string | File | null;
+  productImageFour: string | File | null;
 }
 
 interface IProductRequest {
@@ -135,4 +135,13 @@ interface IProductRequest {
   category: ICategory;
   subcategory: ISubcategory;
   brand: IBrand;
+}
+
+interface IApproveProductRequest {
+  brand_id: string;
+  corporate_profile_id: string;
+}
+
+interface IRejectProductRequest {
+  admin_comment: string;
 }

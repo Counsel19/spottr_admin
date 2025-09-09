@@ -9,6 +9,25 @@ interface TabsBoxProps {
   }[];
 }
 
+function isActivePath(tabPath: string, currentPath: string) {
+  const tabSegments = tabPath.split("/").filter(Boolean);
+  const currentSegments = currentPath.split("/").filter(Boolean);
+
+  // exact match
+  if (currentPath === tabPath) return true;
+
+  // check if current is a child of tab
+  if (
+    currentSegments.length > tabSegments.length &&
+    currentSegments.slice(0, tabSegments.length).join("/") ===
+      tabSegments.join("/")
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
 const TabsBox = ({ tabs }: TabsBoxProps) => {
   const location = useLocation();
 
@@ -21,10 +40,7 @@ const TabsBox = ({ tabs }: TabsBoxProps) => {
           className={cn(
             buttonVariants({ variant: "ghost" }),
             "h-14 py-0 bg-transparent text-muted hover:bg-[#274B891A]",
-            ((tab.path !== "/dashboard" &&
-              location.pathname.includes(tab.path)) ||
-              (location.pathname === "/dashboard" &&
-                location.pathname === tab.path)) &&
+            isActivePath(tab.path, location.pathname) &&
               "bg-[#274B891A] text-primary"
           )}
         >

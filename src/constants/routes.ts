@@ -14,6 +14,7 @@ const routeConstants = {
   editProduct: (id?: string) => `/dashboard/products/${id || ":id"}/edit`,
 
   //usermanagement
+  addAdmineUser: "/dashboard/users/admins/add",
   addCorporateUser: "/dashboard/users/corporate/add",
   viewSellerUser: (id?: string) => `/dashboard/users/seller/${id || ":id"}`,
   viewBuyerUser: (id?: string) => `/dashboard/users/buyer/${id || ":id"}`,
